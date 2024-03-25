@@ -21,7 +21,8 @@ async def fetch_messages_from_client(chat):
         temp_df = pd.DataFrame(data, index=[1])
         df = pd.concat([df, temp_df])
     print(df.head())
-
+    df.to_csv('trial.csv')
+    
 test_links = {"group": "https://t.me/joinchat/BlviDUvKluDK9m3p7OpIxQ", "private": "https://t.me/AmirMosio"}
 chat = test_links['group']
 asyncio.run(fetch_messages_from_client(chat))
