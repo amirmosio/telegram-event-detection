@@ -17,7 +17,7 @@ async def fetch_messages_from_client(chat):
 
     messages = await client.get_messages(chat, 55)
     for message in messages:
-        data = { "group" : chat, "sender" : message.sender_id, "text" : message.text, "date" : message.date}
+        data = { "group" : chat, "sender" : message.sender_id, "text" : message.text, "date" : message.date, "reactions" : message.reactions}
         temp_df = pd.DataFrame(data, index=[1])
         df = pd.concat([df, temp_df])
     print(df.head())
