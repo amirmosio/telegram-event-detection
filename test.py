@@ -10,6 +10,7 @@ api_id = config('TELEGRAM_CLIENT_API_ID')
 api_hash = config('TELEGRAM_CLIENT_API_HASH')
 
 async def fetch_messages_from_client(chat):
+    
     client = AnomalyDetectionClient(phone_number, api_id, api_hash)
     await client.connect(run_blocking=False)
 
