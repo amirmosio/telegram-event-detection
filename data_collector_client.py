@@ -16,9 +16,9 @@ class AnomalyDetectionClient:
                 print(event.is_group, event.is_channel, event.is_private)
                 print(event.raw_text)
 
-    async def get_messages(self, chat_id, limit):
+    async def get_messages(self, chat_id, limit=None, offset_date=None):
         async with self.client.takeout() as takeout:
-            return await takeout.get_messages(chat_id, limit=limit)  # wrapped through takeout (less limits)
+            return await takeout.get_messages(chat_id, limit=limit, offset_date=offset_date)  # wrapped through takeout (less limits)
 
 
     async def connect(self, run_blocking=True):
