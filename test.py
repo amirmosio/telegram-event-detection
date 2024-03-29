@@ -18,15 +18,13 @@ async def fetch_messages_from_client(chat):
 
     messages = await client.get_messages(chat, 55)
     for message in messages:
-        reactions = [[reaction.emoji, reaction.count, reaction.date] for reaction in message.reactions if reaction.count != None]
-        print(reactions)
-        data = { "group" : chat, "sender" : message.sender_id, "msg_id": message.id,  "text" : message.text, "date" : message.date, "reactions" : message.reactions, "reply" : message.reply_to_msg_id}
+        data = { "group" : chat, "sender" : message.sender_id, "msg_id": message.id, "reply" : message.reply_to_msg_id,  "text" : message.text, "date" : message.date, "reactions" : message.reactions}
         temp_df = pd.DataFrame(data, index=[1])
         df = pd.concat([df, temp_df])
     print(df.head())
-    df.to_csv('trial.csv')
-    client.disconnect()
+    df.to_csv('poli_msgs.csv')
+    await client.disconnect()
     
-test_links = {"group": "https://t.me/+synza2388S80NWM0", "private": "https://t.me/AmirMosio"}
-chat = test_links['group']
+test_links = {"group": "https://t.me/+synza2388S80NWM0", "poli_group": "https://t.me/PoliGruppo"}
+chat = test_links['poli_group']
 asyncio.run(fetch_messages_from_client(chat))
