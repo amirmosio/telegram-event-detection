@@ -1,6 +1,5 @@
 from telethon import TelegramClient, events, errors
 
-
 class AnomalyDetectionClient:
 
     def __init__(self, phone_number, api_id, api_hash):

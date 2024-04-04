@@ -1,68 +1,113 @@
-,group,sender,text,date,reactions
-1,https://t.me/+synza2388S80NWM0,5328388801,We can do it online so that everyone could join,2024-03-26 19:35:34+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=3, chosen_order=0)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=480675472), date=datetime.datetime(2024, 3, 27, 9, 29, 13, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 27, 0, 2, 11, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=984447467), date=datetime.datetime(2024, 3, 26, 21, 53, 43, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,480675472,I'm ok if we do it online,2024-03-26 18:07:58+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,I'm free but I prefer online,2024-03-26 17:59:30+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,"What about the other days. I have probably less constraint
-@ErfanAmidi_I
-@Martinavigano",2024-03-26 17:27:21+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,I am free from 11:30 to 15:30,2024-03-26 17:23:42+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 26, 17, 27, 37, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,382281069,"Thursday, I'm all available except from 5:15 till 7:15",2024-03-26 17:21:31+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,Do you want to meet/call sometime soon or we work independently?,2024-03-26 17:17:00+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,,2024-03-25 18:01:09+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 25, 18, 1, 51, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,382281069,it's ok. Thanks,2024-03-25 18:01:02+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,I coudn't do it directly when saving the messages so I modified the csv,2024-03-25 18:00:23+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,perfetto,2024-03-25 18:00:07+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,"It seems to work. I created another file ""reaction_trials.csv"", it is equal to ""trails.csv"" plus a new column emoji_count with [(emoji, count), (...)..]",2024-03-25 17:59:46+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,If you react with different reactions to this message this evening I will try to see if it works,2024-03-25 16:32:10+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=None), ReactionCount(reaction=ReactionEmoji(emoticon='🔥'), count=1, chosen_order=0), ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=5328388801), date=datetime.datetime(2024, 3, 25, 17, 13, 30, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 25, 16, 34, 48, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=480675472), date=datetime.datetime(2024, 3, 25, 16, 32, 39, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🔥'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,984447467,"I'm not sure it is correct, because for the message I read it seems to detect only one type of reaction",2024-03-25 16:31:31+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,"I guess the csv can be modified once transformed in a dataframe, I don't know if it can be done direcly. I'll look into it",2024-03-25 16:07:19+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 25, 16, 7, 52, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,382281069,I mean it would be simpler to read from...,2024-03-25 16:02:55+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,"Could you do it like reactions: {""🤞"": 1}?",2024-03-25 16:02:38+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,Perfect,2024-03-25 16:01:22+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,,2024-03-25 16:01:03+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,It's probably something with the working directory and addresses,2024-03-25 16:00:59+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,Actually i used run without debugging so that make sense.,2024-03-25 16:00:38+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,I can't understand why since it is the same code,2024-03-25 16:00:36+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,"When I run directly from the terminal I get the same problem. If I select ""run without debugging"" it works",2024-03-25 16:00:02+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,"wow,
-great
-Can you send the csv, I just want to see in what format do we get them...",2024-03-25 15:59:55+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,I manage to add them,2024-03-25 15:59:03+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,I can try now,2024-03-25 15:06:50+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👌'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 25, 15, 7, 5, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👌'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,382281069,"ok, thanks",2024-03-25 15:06:25+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,"ahh, too late",2024-03-25 15:06:21+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,"Also, if you want to commit the changes in the repository add the message.reactions in the data dictionary....
-with message.reactions we can access to reactions",2024-03-25 15:06:16+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,I pushed the new version of test (just with the line for the csv) and the embedding file,2024-03-25 15:06:07+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,great,2024-03-25 15:04:28+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,Yes,2024-03-25 15:04:11+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,"Yeah,
-It's probably ok. He was very supportive so accessing the data should'nt be a problem with the client from their side. Although he said that he would also talk with his colleagues to give us the official answer later.",2024-03-25 15:03:15+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=0)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=480675472), date=datetime.datetime(2024, 3, 25, 15, 46, 3, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,480675472,Did you meet the polinetwork’s guys?,2024-03-25 15:01:52+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,"hmm
-are you sure? did you change the values in test.py to read with conf(method) as well?",2024-03-25 15:01:50+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,"Now it works just fine, I don't know why it didn't work before",2024-03-25 15:01:07+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,"@Martinavigano 
-Tell me if you could find the problem with the .env file.",2024-03-25 15:00:02+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,"Room 2.1.3, it should be free",2024-03-25 12:08:16+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,"I asked them where they want to meet, I'll let you know as soon as I receive an answer",2024-03-25 11:27:43+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 25, 11, 29, 39, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,984447467,Is tomorrow at 14 ok for you?,2024-03-24 15:51:41+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=2, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=5328388801), date=datetime.datetime(2024, 3, 24, 17, 6, 19, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 24, 15, 52, 4, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,480675472,https://github.com/facebookresearch/LASER,2024-03-24 10:41:55+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 24, 10, 44, 27, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,480675472,I think it’s this,2024-03-24 10:41:53+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,No i haven't received anything. Somthing about the laser embedding....,2024-03-24 09:54:22+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=5328388801), date=datetime.datetime(2024, 3, 24, 10, 32, 3, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,984447467,Do you remember the name of the technique proposed by the professor for the classification part? Or have you received the study material yet?,2024-03-24 09:15:16+00:00,
-1,https://t.me/+synza2388S80NWM0,480675472,lorenzo.mondo@mail.polimi.it,2024-03-23 21:34:17+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 24, 10, 9, 30, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,984447467,Martina2.vigano@mail.polimi.it,2024-03-23 19:22:10+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 24, 10, 9, 40, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,382281069,https://github.com/amirmosio/telegram-event-detection/invitations,2024-03-23 18:58:11+00:00,
-1,https://t.me/+synza2388S80NWM0,5328388801,amidierfan@gmail.com,2024-03-23 18:52:34+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,could you send me the mail of your github account so that i can invite you ....,2024-03-23 18:28:41+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,https://github.com/amirmosio/telegram-event-detection,2024-03-23 18:28:27+00:00,
-1,https://t.me/+synza2388S80NWM0,480675472,I vote the 4th,2024-03-23 18:01:34+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=2, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=984447467), date=datetime.datetime(2024, 3, 23, 18, 20, 12, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 23, 18, 3, 17, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
-1,https://t.me/+synza2388S80NWM0,382281069,"TelegramInfromationSpace
-AnamolyDetectionBot
-InformationSpace
-TelegramEventDetection
-TelegramAnamolyDetection",2024-03-23 16:44:16+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,It would be more convenient to set it related to the topic of the project...,2024-03-23 16:39:42+00:00,
-1,https://t.me/+synza2388S80NWM0,382281069,somewhat true. But it would be better to have their permission to collect and analyze the data,2024-03-23 16:38:50+00:00,
-1,https://t.me/+synza2388S80NWM0,984447467,We could use our names/surnames concatenated,2024-03-23 16:35:06+00:00,
+,group,sender,msg_id,reply,text,date,reactions
+1,https://t.me/+synza2388S80NWM0,480675472,308,306,"I think that we’ll use chatgpt in the future, Maybe you can create a Python script with some useful functions to use it easily for our future works",2024-03-29 15:19:08+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,307,305,not sure either. Maybe trying to read some paper to compare other's work. I donno,2024-03-29 15:15:23+00:00,
+1,https://t.me/+synza2388S80NWM0,984447467,306,304,"Yes it's probably better this way. It might be useful since our messages are short, so even stopwords are importat",2024-03-29 15:13:09+00:00,
+1,https://t.me/+synza2388S80NWM0,984447467,305,,"Also I'm not sure about what I should be working on, so if you have a specif task in mind let me know so I'll do it",2024-03-29 15:11:44+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,304,303,"yeah, probably
+but maybe transformers are complex enough to ignore those words themselves. I mean they have been trained on huge amount of data ...
+We can postpone it for later and implement it if the model performance was not high enough",2024-03-29 15:11:33+00:00,
+1,https://t.me/+synza2388S80NWM0,984447467,303,,Maybe deleting the stopword from the message will help with the embdedding,2024-03-29 15:09:10+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,302,301,"yeah, that's true for all the embeddings. The model would be more accurate if we take into account a group of messages as a single messages does not include the whole topic/context and they are usually short messages",2024-03-29 15:03:57+00:00,
+1,https://t.me/+synza2388S80NWM0,480675472,301,,"Concept drift detectors are used to detect if a change in the distribution of the data arises.
+
+Since laser embedding maps the sentences with similar semantic in a close region, if the  topic changes also the distribution of the vectors related to the new topic should change with respect to the previous one",2024-03-29 14:53:26+00:00,
+1,https://t.me/+synza2388S80NWM0,5328388801,300,298,"That's true...
+At least for most cases 👍",2024-03-29 14:42:00+00:00,
+1,https://t.me/+synza2388S80NWM0,480675472,299,,For change topic detection also the concept drift detectors could be used in some way,2024-03-29 14:41:41+00:00,
+1,https://t.me/+synza2388S80NWM0,480675472,298,,"I was thinking that Maybe we could avoid to translate the messages beforehand, usually when a conversatiom is in English, if there is a new message in italian it is not related to the same topic",2024-03-29 14:40:33+00:00,
+1,https://t.me/+synza2388S80NWM0,5328388801,297,,"The other methods I looked up for detecting the changes was Density based clustering (like DBSCAN) but for this one we have to indicate the minimum number of points for a neighborhood/cluster 
+
+And i guess this one is better for detecting the change but the trade off it's the issue we talked about yesterday, in which the distance between the vectors of the messages to be considered a ""change"" varies based on the time span of the messages we're looking at
+
+Overall with the clustering methods you have to indicate for the method to group the messages",2024-03-29 14:40:24+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,296,,Also this one is doing smt similar...,2024-03-29 14:37:18+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,295,293,"As you said, we have to assume that all messages can be labeled, however in real data the messages may not have the context(crucial words) to being labeled, so that would affect the performance drastically...
+That's my guess",2024-03-29 14:34:49+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,294,293,agreed,2024-03-29 14:32:26+00:00,
+1,https://t.me/+synza2388S80NWM0,5328388801,293,,By using k-means we have to come up with all the labels we want to know and assume that all the messages would fit into the labels we considered (the downside is that the accuracy will be lowered given some messages probably will not fit into the labels) but I guess it's one of the easier ways to go with,2024-03-29 14:31:48+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,292,,"On Detecting Changes in Statistical Data
+Signals .....",2024-03-29 14:23:02+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,291,281,"oh, sorry, I forgot to respond to this one. xd
+From user ids we can track down the actual users.
+but if we use only the hashes of ids we wouldn't have any data relating messages and actual telegram users.",2024-03-29 14:13:44+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,290,286,"In general
+If we want to do smt with the embeddings and detect changes in patterns using neural networks
+we need RNN structure or Transformer to handle sequential inputs",2024-03-29 13:47:43+00:00,
+1,https://t.me/+synza2388S80NWM0,5328388801,289,,If you found anything interesting send it here,2024-03-29 13:46:55+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 29, 13, 47, 57, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,5328388801,288,287,Ok 👍,2024-03-29 13:46:51+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,287,286,"I read a medium, which mentioned machine learning algorithms in general....",2024-03-29 13:45:40+00:00,
+1,https://t.me/+synza2388S80NWM0,5328388801,286,,"I was looking up ways for detecting the change, i looked at clustering methods but i didn't looked up the RNNs, did you read any research or something else related to it, or you just think it might work?",2024-03-29 13:44:09+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,285,284,Is there anything else to add? Maybe we can split these into tasks and assigb the work...,2024-03-29 13:41:04+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,284,,"We have these components to be completed:
+
+ - Change detector using probably RNN (Or with some classic algorithms Or with a prompt in ChatGPT)
+
+ - Preprocessing phase
+
+ - Client side to register users and interact with the user
+
+ - Labeling Data manually or automatic",2024-03-29 13:40:38+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,283,282,"Yeah, i have the same situation",2024-03-29 13:32:44+00:00,
+1,https://t.me/+synza2388S80NWM0,480675472,282,,"Anyway for What concern the meeting I have no relevant updates to share with you today because I had not time.
+
+I would prefer to do something from now on on my own, but if you have some relevant information to share I’ll join the meeting too",2024-03-29 13:18:17+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=5328388801), date=datetime.datetime(2024, 3, 29, 13, 21, 24, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,480675472,281,,Why do you want to hash the ids?,2024-03-29 13:13:06+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,280,279,I found this one for hashing useres. As usual hash changes over different python processes.,2024-03-29 12:04:24+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,279,,"import hashlib
+hashlib.sha256(user_id).hexdigest(5)",2024-03-29 12:03:31+00:00,
+1,https://t.me/+synza2388S80NWM0,5328388801,278,274,I can do it from 15h00 if you want to have a meeting,2024-03-29 12:03:11+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 29, 12, 3, 56, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,984447467,277,,"Also yesterday I made a small script to automatically translate the messages, we could incorporate it before the embeddings",2024-03-29 12:01:18+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 29, 12, 1, 32, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,382281069,276,273,"or just merge your changes to the main branch, that's unnecessary for now...",2024-03-29 12:01:12+00:00,
+1,https://t.me/+synza2388S80NWM0,984447467,275,274,I'm available if you want to meet,2024-03-29 11:59:40+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,274,,Do we have a meeting today?,2024-03-29 11:58:31+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,273,272,then create a pull request to update the main branch.,2024-03-29 11:47:54+00:00,
+1,https://t.me/+synza2388S80NWM0,480675472,272,,On my branch,2024-03-29 11:44:56+00:00,
+1,https://t.me/+synza2388S80NWM0,480675472,271,,Yesterday I added also the message_id and reply_to_id information into the dataset,2024-03-29 11:44:40+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👌'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 29, 11, 45, 17, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👌'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,480675472,270,,I think it is useful to add also the information about the replies,2024-03-29 11:43:57+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,269,267,"yeah, first i will change the code to save the hash(user_id) instead of the real user_id. Then we can encode it to one hot or ....",2024-03-29 11:42:15+00:00,
+1,https://t.me/+synza2388S80NWM0,480675472,268,,You could normalize it and use it as feature for the model,2024-03-29 11:41:16+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 29, 11, 42, 19, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,480675472,267,,The user id is already in the dataset if i’m not wrong,2024-03-29 11:40:48+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,266,,"I’m trying to build an RNN model to detect changes in topics from a timeline of messages. I’m using a sentence transformer to embed each message and feeding these embeddings one by one to detect if the topic has changed or if it is related to the previous messages. In addition to the embeddings, I want to add user data. I do not want to profile users, but adding the information that these two messages has been sent by the same user. How can I add this data to my embedding?
+
+ChatGPT:
+You can incorporate user information into your embeddings by using a technique called feature concatenation. Here’s a general idea of how you can do it:
+
+User ID Encoding: Assign a unique ID to each user and use one-hot encoding or an embedding layer to convert these IDs into fixed-length vectors. This will allow your model to learn and understand user-specific characteristics.
+Concatenation: After you have both the message embeddings (from Sentence Transformer) and user embeddings (from User ID Encoding), you can concatenate these two vectors to form a new input vector. This new vector now contains information from both the message and the user.",2024-03-29 11:24:50+00:00,"MessageReactions(results=[], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[])"
+1,https://t.me/+synza2388S80NWM0,5328388801,265,,"Sorry i got caught up in the middle of something and I forgot to send it, I'll send it now",2024-03-28 18:46:07+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=2, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=984447467), date=datetime.datetime(2024, 3, 28, 19, 33, 7, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 28, 18, 50, 54, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,984447467,264,,Did someone write? I can send an email now in case,2024-03-28 18:08:04+00:00,
+1,https://t.me/+synza2388S80NWM0,5328388801,263,,"This is what i thought 
+
+I didn't wanted to put a strict timeline, unless she tells us to give her one
+(Since we talked about a 2 week to deadline for ourself)
+
+If you guys think of adding or changing something in it let me know",2024-03-28 16:30:26+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=2, chosen_order=0), ReactionCount(reaction=ReactionEmoji(emoticon='👌'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=480675472), date=datetime.datetime(2024, 3, 28, 17, 31, 25, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 28, 16, 34, 58, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👌'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=984447467), date=datetime.datetime(2024, 3, 28, 16, 34, 2, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,382281069,262,261,"Excellent
+Don't forget to put us in cc",2024-03-28 16:28:19+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='👍'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=5328388801), date=datetime.datetime(2024, 3, 28, 16, 29, 23, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='👍'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,5328388801,261,,"Hello Prof. Pernici,
+
+We wanted to update you on how the project is going and what we plan to do. 
+
+We had a meeting with PoliNetwork associates this week, they gave us an unofficial approval, but they said they have to talk back with the association's board and will give us the feedback.
+
+For now we have started testing methods that you sent us (Laser Embedding and sentence transformer).
+
+Also, we have implemented the script in which we are going to use to gather the data.
+
+As for the next steps for the coming days we plan to work on the data gathering pipeline and the preprocessing stage, As well as reading more about the the embedding techniques and the best approach we can take for detecting the change of topic in a conversation.
+
+Here is a link to our GitHub repo:
+https://github.com/amirmosio/telegram-event-detection",2024-03-28 16:27:10+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='❤'), count=2, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=984447467), date=datetime.datetime(2024, 3, 28, 16, 33, 54, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='❤'), big=False, unread=False, my=False), MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 28, 16, 28, 21, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='❤'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,382281069,260,,"Hi Prof. Barbara,
+I just wanted to update you of what we are doing and what we plan to do. We already talked with Poli network associates, and they gave us an unofficial approval. They said that they would talk into it and will give us the unofficial answer. For now we started testing methods that you have sent (Laser Embedding and sentence transformer). Also, we have implemented the script in which we are going to use  to gather the data. here is a link to our GitHub repo:
+https://github.com/amirmosio/telegram-event-detection",2024-03-28 16:03:35+00:00,
+1,https://t.me/+synza2388S80NWM0,5328388801,259,,I'll be in the meeting in 5mins,2024-03-28 15:52:22+00:00,"MessageReactions(results=[ReactionCount(reaction=ReactionEmoji(emoticon='🤝'), count=1, chosen_order=None)], min=False, can_see_list=True, reactions_as_tags=False, recent_reactions=[MessagePeerReaction(peer_id=PeerUser(user_id=382281069), date=datetime.datetime(2024, 3, 28, 15, 52, 45, tzinfo=datetime.timezone.utc), reaction=ReactionEmoji(emoticon='🤝'), big=False, unread=False, my=False)])"
+1,https://t.me/+synza2388S80NWM0,382281069,258,,@ErfanAmidi_I,2024-03-28 15:51:43+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,257,,https://meet.google.com/akm-dase-qca,2024-03-28 15:48:16+00:00,
+1,https://t.me/+synza2388S80NWM0,480675472,256,,Ok,2024-03-28 15:46:18+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,255,,"@ErfanAmidi_I 
+@LorenzoMondo 
+I want to send an email to the prof to tell about our plan and update her about the work. But i think i should also mention about our timeline. Are you ok if we decide now? Should i send the meet link?",2024-03-28 15:43:36+00:00,
+1,https://t.me/+synza2388S80NWM0,382281069,254,,"Also we should take into consideration the preprocessing stage. I'm we probably have to remove all the empty message(messages without text, maybe images or Gif...)
+and translate the messages into eng
+and after all that we can start to implement smt to label data manually",2024-03-28 15:39:04+00:00,
