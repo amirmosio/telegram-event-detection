@@ -5,17 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug: fetching data",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "./data_collection/fetching_data.py",
-            "console": "integratedTerminal"
-        },
-        {
             "name": "Debug: main",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Debug: client models",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "user_telegram_client/user_client.py",
             "console": "integratedTerminal"
         }
     ]

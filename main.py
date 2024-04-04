@@ -17,3 +17,19 @@ for chat in groups_to_fetch_messages:
     df = pd.concat([df, group_df])
 
 df.to_csv("./data/trial.csv")
+
+
+# Telegram User Client
+
+# from decouple import config
+# from user_telegram_client.user_client import UserClient
+# import asyncio
+
+# phone_number = config('TELEGRAM_CLIENT_PHONE_NUMBER')
+# api_id = config('TELEGRAM_CLIENT_API_ID')
+# api_hash = config('TELEGRAM_CLIENT_API_HASH')
+
+# async def connect():
+#     client = UserClient(phone_number, api_id, api_hash)
+#     await client.connect(run_blocking=True)
+# asyncio.run(connect())
