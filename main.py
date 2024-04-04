@@ -4,9 +4,9 @@ import asyncio
 from decouple import config
 
 
-batch_size = config("BATCH_SIZE")
-batch_size_increase_rate = config("BATCH_SIZE_INCREASE_RATE")
-time_interval_to_fetch_messages = config("TIME_INTERVAL_TO_FETCH_MESSAGES")
+batch_size = int(config("BATCH_SIZE"))
+batch_size_increase_rate = int(config("BATCH_SIZE_INCREASE_RATE"))
+time_interval_to_fetch_messages = int(config("TIME_INTERVAL_TO_FETCH_MESSAGES"))
 
 df = pd.DataFrame()
 

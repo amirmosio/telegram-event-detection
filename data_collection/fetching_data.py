@@ -1,4 +1,4 @@
-from .data_collector_client import AnomalyDetectionClient
+from .data_collector_client import DataCollectorClient
 from decouple import config
 import pandas as pd
 import datetime
@@ -9,7 +9,7 @@ api_hash = config('TELEGRAM_CLIENT_API_HASH')
 
 async def fetch_messages_from_client_add_to_the_datafram(chat, limit, batch_size_rate=None, time_interval_to_fetch_messages=180):
 
-    client = AnomalyDetectionClient(phone_number, api_id, api_hash)
+    client = DataCollectorClient(phone_number, api_id, api_hash)
     await client.connect(run_blocking=False)
 
     group_df = pd.DataFrame()
