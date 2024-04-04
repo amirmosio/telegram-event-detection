@@ -1,8 +1,6 @@
-from data_collector_client import AnomalyDetectionClient
-import asyncio
+from .data_collector_client import AnomalyDetectionClient
 from decouple import config
 import pandas as pd
-import json
 import datetime
 
 phone_number = config('TELEGRAM_CLIENT_PHONE_NUMBER')
@@ -43,17 +41,3 @@ async def fetch_messages_from_client_add_to_the_datafram(chat, limit, batch_size
     await client.disconnect()
     return group_df
     
-test_links = {"group": "https://t.me/+synza2388S80NWM0", "private": "https://t.me/AmirMosio"}
-chat = test_links['group']
-
-batch_size = 1000
-batch_size_increase_rate = 2 
-time_interval_to_fetch_messages = 40 # days
-df = pd.DataFrame()
-
-groups_to_fetch_messages = ["https://t.me/+synza2388S80NWM0", "https://t.me/PoliGruppo"]
-for chat in groups_to_fetch_messages:
-    group_df = asyncio.run(fetch_messages_from_client_add_to_the_datafram(chat, limit=batch_size, batch_size_rate=batch_size_increase_rate))
-    df = pd.concat([df, group_df])
-
-df.to_csv("trial.csv")
