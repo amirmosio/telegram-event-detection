@@ -10,7 +10,13 @@ time_interval_to_fetch_messages = int(config("TIME_INTERVAL_TO_FETCH_MESSAGES"))
 
 df = pd.DataFrame()
 
-groups_to_fetch_messages = ["https://t.me/+synza2388S80NWM0", "https://t.me/PoliGruppo"]
+groups_to_fetch_messages = ["https://t.me/joinchat/OOC4qk2QS1FM37aETHuzWQ",
+                            "https://t.me/joinchat/RL4pXSkXipyuKDmd",
+                            "https://t.me/joinchat/FNGD_0n6IpIbjfJBAZsuoA",
+                            "https://t.me/joinchat/qyxbq_vZ5f4xYzg0",
+                            "https://t.me/joinchat/rLRXuuItcHtkMTVk",
+                            "https://t.me/joinchat/aiAC6RgOjBRkYjhk",
+                            "https://t.me/PoliGruppo"]
 for chat in groups_to_fetch_messages:
     print(f"fetching from {chat}")
     group_df = asyncio.run(fetch_messages_from_client_add_to_the_datafram(chat, limit=batch_size, batch_size_rate=batch_size_increase_rate))

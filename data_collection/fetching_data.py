@@ -18,13 +18,14 @@ async def fetch_messages_from_client_add_to_the_datafram(chat, limit, batch_size
     last_message_date_is_in_desired_interval = False
 
     while not last_message_date_is_in_desired_interval:
+        print(f"last_message_date:{last_message_date} new download with batch size {limit}")
 
         messages = await client.get_messages(chat, limit, offset_date=last_message_date)
         new_group_df = pd.DataFrame()
         for message in messages:
             reactions_result = [] if message.reactions is None else message.reactions.results
             reactions_dict = {r.reaction.emoticon:r.count for r in reactions_result}
-            data = { "group" : chat, "sender" : message.sender_id, "text" : message.text, "reply" : message.reply_to_msg_id, "date" : message.date, "reactions" : reactions_dict}
+            data = {"id": message.id, "group" : chat, "sender" : message.sender_id, "text" : message.text, "reply" : message.reply_to_msg_id, "date" : message.date, "reactions" : reactions_dict}
             new_group_df = new_group_df._append(data, ignore_index = True) 
 
         if new_group_df.empty:
@@ -37,7 +38,6 @@ async def fetch_messages_from_client_add_to_the_datafram(chat, limit, batch_size
         group_df = pd.concat([group_df, new_group_df])
 
         limit *= batch_size_rate
-    
     await client.disconnect()
     return group_df
     
