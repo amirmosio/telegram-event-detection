@@ -11,19 +11,5 @@
             "program": "main.py",
             "console": "integratedTerminal"
         },
-        {
-            "name": "Debug: client models",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "user_telegram_client/user_client.py",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Debug: selecting labeling data",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main_select_labeling_data.py",
-            "console": "integratedTerminal"
-        }
     ]
 }
