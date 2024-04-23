@@ -9,9 +9,13 @@ import asyncio
 
 from conversation_models.random_forest.data_preparation import (
     generate_dataset_from_labeled_data_with_sliding_window,
+    split_train_test_validation_and_remove_extra_data,
 )
 
-from conversation_models.random_forest.model_training import train_random_forest_model
+from conversation_models.random_forest.model_training import (
+    print_model_evaluation,
+    train_random_forest_model,
+)
 
 commands = {
     "1": "Download dataset from telegram groups",
@@ -63,12 +67,24 @@ elif command == "3":
     )
     raw_data = raw_data.dropna(subset=["conversation_id"])
     raw_data = raw_data.reset_index(drop=True)
+    # raw_data = raw_data.iloc[:55]
+    dataset_df = generate_dataset_from_labeled_data_with_sliding_window(
+        raw_data, window_size=4
+    )
+    X_t, y_t, X_v, y_v, _, _ = split_train_test_validation_and_remove_extra_data(
+        dataset_df
+    )
 
-    train_df = generate_dataset_from_labeled_data_with_sliding_window(raw_data)
-    acc, model = train_random_forest_model(train_df)
-    print(acc)
-
-elif command == "4":
+    model = train_random_forest_model(X_t, y_t)
+    print("important features")
+    importances = model.feature_importances_
+    columns_enumeration = [(column, i) for i, column in enumerate(X_t.columns)]
+    columns_enumeration.sort()
+    for column, i in columns_enumeration:
+        print(f"{column} {round(importances[i], ndigits=3)}", end=", ")
+    print("On Validation:")
+    print_model_evaluation(model, X_v, y_v)
+elif command == "5":
 
     phone_number = config("TELEGRAM_CLIENT_PHONE_NUMBER")
     api_id = config("TELEGRAM_CLIENT_API_ID")
