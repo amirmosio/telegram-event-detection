@@ -1,10 +1,14 @@
 from data_preprocessing.remove_links import remove_links_and_empty_messages
 from data_preprocessing.translation import translate_messages
+from data_preprocessing.grouping import merge_consecutive_messages
 import numpy as np
 import pandas as pd
 
+timeframe = 300
+
 def select_data_for_labeling(df):
     df = remove_links_and_empty_messages(df)
+    df = merge_consecutive_messages(df, timeframe=timeframe)
     # select random as there are lots of message
     new_df = pd.DataFrame()
     window_size = 300
