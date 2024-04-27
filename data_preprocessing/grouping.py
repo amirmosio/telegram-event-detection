@@ -19,3 +19,27 @@ def merge_consecutive_messages(df,timeframe):
                 k = k-1
         i=i+1
     return new_df
+
+def sum_numbers_in_string(text):
+  """
+  This function sums all the numbers present in a string. It can be used to count the reactions in a message.
+
+  Args:
+      text: The string containing numbers.
+
+  Returns:
+      The sum of all the numbers in the string. If no numbers are found, returns 0.
+  """
+  total_sum = 0
+  current_number = ""
+  for char in text:
+    if char.isdigit():
+      current_number += char
+    else:
+      if current_number:
+        total_sum += int(current_number)
+        current_number = ""
+  # Add the last number if it exists
+  if current_number:
+    total_sum += int(current_number)
+  return total_sum
