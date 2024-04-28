@@ -120,9 +120,11 @@ def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
 def split_train_test_validation_and_remove_extra_data(df):
     # To make the dataset more balanced and unbiased we have to drop extra label==True records so that
     # number of label==True traning would be equal to number of label=False
-    df = df.drop("index", axis=1)
-    true_df_to_be_dropped = df[df["label"] == True].iloc[sum(df["label"] == False) :]
-    new_df = df.drop(true_df_to_be_dropped.index)
+    new_df = df.drop("index", axis=1)
+    true_df_to_be_dropped = new_df[new_df["label"] == True].iloc[
+        sum(new_df["label"] == False) :
+    ]
+    new_df = new_df.drop(true_df_to_be_dropped.index)
     X = new_df.drop("label", axis=1)
     y = new_df["label"]
 
