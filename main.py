@@ -15,6 +15,7 @@ from conversation_models.random_forest.data_preparation import (
 from conversation_models.random_forest.model_training import (
     print_model_evaluation,
     train_random_forest_model,
+    print_evaluation_on_test,
 )
 
 commands = {
@@ -71,7 +72,7 @@ elif command == "3":
     dataset_df = generate_dataset_from_labeled_data_with_sliding_window(
         raw_data, window_size=4
     )
-    X_t, y_t, X_v, y_v, _, _ = split_train_test_validation_and_remove_extra_data(
+    X_t, y_t, X_v, y_v, X_tv, y_tv = split_train_test_validation_and_remove_extra_data(
         dataset_df
     )
 
@@ -84,6 +85,9 @@ elif command == "3":
         print(f"{column} {round(importances[i], ndigits=3)}", end=", ")
     print("On Validation:")
     print_model_evaluation(model, X_v, y_v)
+    print("On Test:")
+    print_evaluation_on_test(model, X_tv, y_tv)
+
 elif command == "5":
 
     phone_number = config("TELEGRAM_CLIENT_PHONE_NUMBER")
