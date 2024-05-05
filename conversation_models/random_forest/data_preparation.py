@@ -1,19 +1,13 @@
 import json
 import pandas as pd
-import torch
-from transformers import (
-    RobertaTokenizer,
-    RobertaModel,
-    DistilBertTokenizer,
-    DistilBertModel,
-)
+
 from sklearn.model_selection import train_test_split
 
 from sklearn.metrics.pairwise import cosine_similarity
 from datetime import datetime, timedelta
-from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
 import numpy as np
+from utilities.embeddings import embedding_with_sentence_transformer
 
 
 def calculate_time_delta(a, b):
@@ -24,49 +18,8 @@ def calculate_time_delta(a, b):
     return time_delta / timedelta(minutes=1)
 
 
-def emobedding_with_sentence_transformer(messages):
-    emodel = SentenceTransformer("average_word_embeddings_glove.6B.300d")  # 300
-    return list(emodel.encode(messages))
-
-
-# def embedding_with_laser(messages):
-#     from laserembeddings import Laser
-
-#     laser = Laser()
-#     return laser.embed_sentences(messages, lang=["en"] * len(len(messages)))
-
-
-def embedding_with_reoberta(messages):
-    tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
-    model = DistilBertModel.from_pretrained("distilbert-base-uncased")
-
-    def calculate_embedding(m):
-        input_tokens = tokenizer(
-            m,
-            return_tensors="pt",
-            padding=True,
-            truncation=True,
-            max_length=1024,
-        )
-
-        return model(**input_tokens)
-
-    model.eval()
-
-    embeddings = []
-    with torch.no_grad():
-        for i in tqdm(range(len(messages))):
-            try:
-                output = calculate_embedding(messages[i])
-            except:
-                output = calculate_embedding("")
-
-            embeddings.append(output.last_hidden_state[:, 0, :])
-    return embeddings
-
-
 def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
-    embeddings = emobedding_with_sentence_transformer(df["text"])
+    embeddings = embedding_with_sentence_transformer(df["text"])
     df["embedding"] = embeddings
     result_df = pd.DataFrame()
     for start_idx in tqdm(range(len(df) - window_size - 1)):
@@ -78,7 +31,8 @@ def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
         train_record = {
             f"reaction_ref": sum(
                 json.loads(record_df.iloc[-1]["reactions"].replace("'", '"')).values()
-            )
+            ),
+            # "group": record_df.iloc[-1]["group"],
         }
         for i in range(window_size):
             train_record |= {

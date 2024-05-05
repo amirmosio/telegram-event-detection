@@ -1,0 +1,4 @@
+{
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "jupyter.notebookFileRoot": "${workspaceFolder}"
+}
