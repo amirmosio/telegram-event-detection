@@ -32,6 +32,10 @@ def generate_dataset_considering_root_of_conversation(df, min_conversation_leng=
 
     df.loc[root_indcies, "is_root"] = True
 
+    # Remove conversation start messages which results in short conversations
+    to_be_droped_df = df[df["is_root"] == False][df["reply"] == 0]
+    df = df.drop(to_be_droped_df.index)
+
     # Making data set balanced with respect to target value
     df = shuffle(df)
     false_df_to_be_dropped = df[df["is_root"] == False].iloc[

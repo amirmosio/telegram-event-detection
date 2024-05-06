@@ -10,6 +10,7 @@ from sklearn.metrics import (
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
+import time
 
 
 class ConversationRootModel(torch.nn.Module):
@@ -18,18 +19,18 @@ class ConversationRootModel(torch.nn.Module):
         self.layers = torch.nn.ModuleList()
         layers_size = [
             input_feature_size,
-            # input_feature_size,
-            # 256,
-            # 256,
-            # 128,
-            # 128,
-            # 64,
-            # 64,
+            input_feature_size,
+            256,
+            256,
+            128,
+            128,
+            64,
+            64,
             32,
-            # 32,
-            # 16,
-            # 8,
-            # 4,
+            32,
+            16,
+            8,
+            4,
             2,
             1,
         ]
@@ -77,7 +78,7 @@ def train_neural_network_model(X, y, X_v, y_v):
     model = ConversationRootModel(input_feature_size=len(X[0]))
     cec = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    train_acc_history, val_acc_history = [], []
+    train_acc_history, val_acc_history = [0.5], [0.5]
     for e in tqdm(range(n_epoch)):
         for i, (inputs, labels) in enumerate(data_loader):
             optimizer.zero_grad()
@@ -88,6 +89,10 @@ def train_neural_network_model(X, y, X_v, y_v):
         with torch.no_grad():
             train_acc_history.append(accuracy_score(y, model(X).round()))
             val_acc_history.append(accuracy_score(y_v, model(X_v).round()))
+            if max(val_acc_history[:-1]) <= val_acc_history[-1]:
+                model.save_model(
+                    f"conversation_model_{time.time()}_epoch_{e}_acc_{round(val_acc_history[-1]*100)}"
+                )
 
     return model, train_acc_history, val_acc_history
 

@@ -122,7 +122,7 @@ elif command == "4":
     raw_data = pd.read_csv("./data/trial.csv")
     # raw_data = raw_data.iloc[:355]
     raw_data = generate_dataset_considering_root_of_conversation(
-        raw_data, min_conversation_leng=4
+        raw_data, min_conversation_leng=3
     )
     raw_data.to_csv("./data/training_data_for_nn.csv")
 
