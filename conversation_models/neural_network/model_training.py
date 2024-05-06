@@ -16,7 +16,23 @@ class ConversationRootModel(torch.nn.Module):
     def __init__(self, input_feature_size=300):
         super().__init__()
         self.layers = torch.nn.ModuleList()
-        layers_size = [input_feature_size, 128, 16, 2, 1]
+        layers_size = [
+            input_feature_size,
+            # input_feature_size,
+            # 256,
+            # 256,
+            # 128,
+            # 128,
+            # 64,
+            # 64,
+            32,
+            # 32,
+            # 16,
+            # 8,
+            # 4,
+            2,
+            1,
+        ]
         for i in range(1, len(layers_size)):
             self.layers.append(torch.nn.Linear(layers_size[i - 1], layers_size[i]))
             if i != len(layers_size) - 1:
@@ -50,7 +66,7 @@ def train_neural_network_model(X, y, X_v, y_v):
     data_loader = _get_data_loader(X, y)
 
     learning_rate = 0.0005
-    n_epoch = 10
+    n_epoch = 40
 
     model = ConversationRootModel(input_feature_size=len(X[0]))
     cec = torch.nn.CrossEntropyLoss()
