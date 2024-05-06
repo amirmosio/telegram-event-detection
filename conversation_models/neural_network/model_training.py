@@ -46,6 +46,12 @@ class ConversationRootModel(torch.nn.Module):
             data = layer(data)
         return (data + 1) / 2
 
+    def save_model(self, name="model"):
+        torch.save(self.state_dict(), f"./trained_models/{name}.pth")
+
+    def load_model(self, name="model"):
+        self.load_state_dict(torch.load(f"./trained_models/{name}.pth"))
+
 
 def _get_data_loader(features_tensor, labels_tensor):
 
