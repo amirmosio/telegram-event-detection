@@ -25,6 +25,7 @@ from conversation_models.neural_network.data_preparation import (
     split_train_test_validation,
 )
 from conversation_models.neural_network.model_training import (
+    ConversationRootModel,
     train_neural_network_model,
     print_model_evaluation as print_model_evaluation_nn,
     draw_loss_chart,
@@ -37,6 +38,7 @@ commands = {
     "3": "Train conversation model with random forest",
     "4": "Prepare training data for nn",
     "4.5": "Train conversation model with nn and embedding",
+    "4.6": "Test final nn model with test data",
     "5": "Run Telegram client",
 }
 command = input(
@@ -117,7 +119,8 @@ elif command == "3":
     print("On Validation:")
     print_model_evaluation_rf(model, X_v, y_v)
     print("On Test:")
-    print_evaluation_on_test(model, X_tv, y_tv)
+    print_model_evaluation_rf(model, X_tv, y_tv)
+    # print_evaluation_on_test(model, X_tv, y_tv)
 elif command == "4":
     raw_data = pd.read_csv("./data/trial.csv")
     # raw_data = raw_data.iloc[:355]
@@ -140,7 +143,20 @@ elif command == "4.5":
     )
     print_model_evaluation_nn(model, X_v, y_v)
     draw_loss_chart(train_acc_history, val_acc_history)
+elif command == "4.6":
+    torch.manual_seed(0)
+    raw_data = pd.read_csv("./data/training_data_for_nn.csv")
+    # raw_data = raw_data.iloc[:555]
+    _, _, _, _, X_tv, y_tv = split_train_test_validation(
+        raw_data[["text"]], raw_data["is_root"]
+    )
+    X_tv = replace_text_with_embedding(X_tv)["embedding"]
 
+    with torch.no_grad():
+        model = ConversationRootModel(input_feature_size=len(X_tv.iloc[-1]))
+        model.load_model("conversation_model_1715021680.755679_epoch_24_acc_83")
+        print("Testing")
+        print_model_evaluation_nn(model, X_tv, y_tv)
 elif command == "5":
 
     phone_number = config("TELEGRAM_CLIENT_PHONE_NUMBER")
