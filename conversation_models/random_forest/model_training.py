@@ -44,7 +44,7 @@ def print_model_evaluation(clf, X, y):
     """
 
 
-def print_evaluation_on_test(clf, x, y):
+def print_evaluation_on_test_plus_draw_sample_charts(clf, x, y):
     print_model_evaluation(clf, x, y)
 
     import warnings

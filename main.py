@@ -11,19 +11,18 @@ import asyncio
 
 from conversation_models.random_forest.data_preparation import (
     generate_dataset_from_labeled_data_with_sliding_window,
-    split_train_test_validation_and_remove_extra_data,
 )
 
 from conversation_models.random_forest.model_training import (
     print_model_evaluation as print_model_evaluation_rf,
     train_random_forest_model,
-    print_evaluation_on_test,
+    print_evaluation_on_test_plus_draw_sample_charts,
 )
 from conversation_models.neural_network.data_preparation import (
     generate_dataset_considering_root_of_conversation,
     replace_text_with_embedding,
-    split_train_test_validation,
 )
+from utilities.general import split_train_test_validation
 from conversation_models.neural_network.model_training import (
     ConversationRootModel,
     train_neural_network_model,
@@ -97,8 +96,10 @@ elif command == "3":
     dataset_df = generate_dataset_from_labeled_data_with_sliding_window(
         raw_data, window_size=4
     )
-    X_t, y_t, X_v, y_v, X_tv, y_tv = split_train_test_validation_and_remove_extra_data(
-        dataset_df
+    X = dataset_df.drop("label", axis=1)
+    y = dataset_df["label"]
+    X_t, y_t, X_v, y_v, X_tv, y_tv = split_train_test_validation(
+        X, y, test_ratio=0.2, val_ratio=0.2
     )
     # X_t.to_csv("./data/X_train.csv")
     # y_t.to_csv("./data/y_train.csv")
@@ -120,7 +121,7 @@ elif command == "3":
     print_model_evaluation_rf(model, X_v, y_v)
     print("On Test:")
     print_model_evaluation_rf(model, X_tv, y_tv)
-    # print_evaluation_on_test(model, X_tv, y_tv)
+    # print_evaluation_on_test_plus_draw_sample_charts(model, X_tv, y_tv)
 elif command == "4":
     raw_data = pd.read_csv("./data/trial.csv")
     # raw_data = raw_data.iloc[:355]

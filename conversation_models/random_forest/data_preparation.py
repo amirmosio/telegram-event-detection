@@ -80,24 +80,14 @@ def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
     nn_embeddings = np.array([x for x in result_df["nn_embedding"]])
     nn_embeddings = torch.tensor(nn_embeddings, dtype=torch.float)
     result_df["nn_embedding"] = model(nn_embeddings)
-    return result_df
 
+    result_df = result_df.drop("index", axis=1)
 
-def split_train_test_validation_and_remove_extra_data(df):
     # To make the dataset more balanced and unbiased we have to drop extra label==True records so that
     # number of label==True traning would be equal to number of label=False
-    new_df = df.drop("index", axis=1)
+
     # true_df_to_be_dropped = new_df[new_df["label"] == True].iloc[
     #     sum(new_df["label"] == False) :
     # ]
     # new_df = new_df.drop(true_df_to_be_dropped.index)
-    X = new_df.drop("label", axis=1)
-    y = new_df["label"]
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
-    X_train, X_val, y_train, y_val = train_test_split(
-        X_train, y_train, test_size=0.2, random_state=42
-    )
-    return X_train, y_train, X_val, y_val, X_test, y_test
+    return result_df

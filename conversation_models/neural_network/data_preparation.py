@@ -1,5 +1,4 @@
 from tqdm import tqdm
-from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 from data_preprocessing.translation import translate_messages
 
@@ -51,13 +50,3 @@ def replace_text_with_embedding(df):
     embeddings = embedding_with_reoberta(df["text"].array)
     df["embedding"] = embeddings
     return df
-
-
-def split_train_test_validation(X, y):
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.15, random_state=42
-    )
-    X_train, X_val, y_train, y_val = train_test_split(
-        X_train, y_train, test_size=0.2, random_state=42
-    )
-    return X_train, y_train, X_val, y_val, X_test, y_test
