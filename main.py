@@ -78,6 +78,7 @@ if command == "1":
 elif command == "1.5":
     # to translate downloaded data
     raw_df = pd.read_csv("./data/trial.csv")
+    # raw_df = raw_df.iloc[:555]
     raw_df = translate_messages(raw_df)
     raw_df.to_csv("./data/trial_translated.csv")
 
