@@ -86,8 +86,8 @@ def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
     # To make the dataset more balanced and unbiased we have to drop extra label==True records so that
     # number of label==True traning would be equal to number of label=False
 
-    # true_df_to_be_dropped = new_df[new_df["label"] == True].iloc[
-    #     sum(new_df["label"] == False) :
+    # true_df_to_be_dropped = result_df[result_df["label"] == True].iloc[
+    #     sum(result_df["label"] == False) :
     # ]
-    # new_df = new_df.drop(true_df_to_be_dropped.index)
+    # result_df = result_df.drop(true_df_to_be_dropped.index)
     return result_df
