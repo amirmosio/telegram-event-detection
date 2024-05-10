@@ -45,15 +45,17 @@ def translate_messages(df_original):
                         break  # It it appears when there is a link in the message
                     except ConnectionE as e1:
                         retries += 1
-                        time.sleep(retries * 2)
+                        time.sleep(retries * 3)
                     except Exception as ee:
+                        retries += 1
+                        time.sleep(retries * 3)
                         print("ee:", str(ee))
                 items_queue.task_done()
             except queue.Empty:
                 pass
 
     running = True
-    worker_threads = 15
+    worker_threads = 5
     for _ in range(worker_threads):
         threading.Thread(target=items_queue_worker).start()
 
