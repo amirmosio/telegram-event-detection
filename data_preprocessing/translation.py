@@ -31,14 +31,14 @@ def translate_messages(df_original):
                 item = items_queue.get(timeout=0.01)
                 if item[0] is None:
                     continue
-                retries = 0
+                retries = 1
                 while True:
                     try:
                         t_message = _process_text(item[0])
                         translation_text_google[item[1]] = t_message
                         progress_text_bar.update(1)
                         progress_text_bar.refresh()
-                        time.sleep(0.5)
+                        time.sleep(1)
                         break
                     except TranslatorError:
                         break
@@ -50,13 +50,13 @@ def translate_messages(df_original):
                     except Exception as e:
                         retries += 1
                         time.sleep(retries * 3)
-                        print("ee:", str(e))
+                        print("e:", str(e))
                 items_queue.task_done()
             except queue.Empty:
                 pass
 
     running = True
-    worker_threads = 4
+    worker_threads = 5
     for _ in range(worker_threads):
         threading.Thread(target=items_queue_worker).start()
 
