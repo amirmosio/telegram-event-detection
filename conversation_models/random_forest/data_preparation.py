@@ -83,6 +83,38 @@ def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
 
     result_df = result_df.drop("index", axis=1)
 
+##############################################
+    result_df['greetings'] = 0
+    result_df['thanks'] = 0
+    result_df['questions'] = 0
+
+    greet = ['hi','hi!','hi,','hi.','hello', 'hello!','hello,','hello.','hey','hey!','hey,','hey.']
+    greet2 = ['good morning','good morning!','good morning,','good morning.','good afternoon','good afternoon!','good afternoon,','good afternoon.','good evening','good evening!','good evening,','good evening.']
+    thank = ['thanks','thanks!','.thanks','thank','.thank']
+
+    for i, row in result_df.iterrows():
+
+        # Check if any string in greet is in the 'text' column and 'reply' column is empty
+        text = str(row['text']).lower()
+        words = text.split()
+        text_with_spaces = ' '.join(words)
+    
+
+        if any(word in greet for word in words) and pd.isnull(row['reply']):
+            result_df.at[i, 'greetings'] = 1
+        if any(phrase in text_with_spaces for phrase in greet2) and pd.isnull(row['reply']):
+            result_df.at[i, 'greetings'] = 1
+
+        # check if it's a thanks message without a '?' & 'thanks in advance'
+        if any(word in thank for word in words) and not any('?' in word for word in words) and not any('advance' in word for word in words):
+            result_df.at[i, 'thanks'] = 1
+    
+        # check if it's a question
+        if '?' in text:
+            result_df.at[i, 'questions'] = 1
+
+    ########################################   
+
     # To make the dataset more balanced and unbiased we have to drop extra label==True records so that
     # number of label==True traning would be equal to number of label=False
 
