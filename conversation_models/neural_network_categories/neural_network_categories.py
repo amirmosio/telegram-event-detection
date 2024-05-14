@@ -67,7 +67,7 @@ def build_model(input_shape, output_shape):
     model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
     model.compile(optimizer=tf.keras.optimizers.Adam(),
                   loss=tf.keras.losses.CategoricalCrossentropy(),
-                  metrics=['accuracy'])
+                  metrics=['f1-score'])
 
     return model
 
