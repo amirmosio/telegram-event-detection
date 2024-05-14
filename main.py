@@ -3,7 +3,7 @@ from data_collection.fetching_data import fetch_messages_from_client_add_to_the_
 import pandas as pd
 import asyncio
 from decouple import config
-from data_labeling.select_for_labeling import select_data_for_labeling
+from data_labeling.select_for_labeling import select_data_for_labeling_conversation_id
 from decouple import config
 from data_preprocessing.translation import translate_messages
 from user_telegram_client.user_client import UserClient
@@ -60,13 +60,23 @@ if command == "1":
     df = pd.DataFrame()
 
     groups_to_fetch_messages = [
-        "https://t.me/joinchat/OOC4qk2QS1FM37aETHuzWQ",
-        "https://t.me/joinchat/RL4pXSkXipyuKDmd",
-        "https://t.me/joinchat/FNGD_0n6IpIbjfJBAZsuoA",
-        "https://t.me/joinchat/qyxbq_vZ5f4xYzg0",
-        "https://t.me/joinchat/rLRXuuItcHtkMTVk",
-        "https://t.me/joinchat/aiAC6RgOjBRkYjhk",
-        "https://t.me/PoliGruppo",
+        "https://t.me/joinchat/UD-gw7Ff7BgxOTQ0",
+        "https://t.me/joinchat/yKfqfy4PH49lNDg0",
+        "https://t.me/joinchat/8Z9Y0f3ymPw3NzNk",
+        "https://t.me/joinchat/QeBrjx97pwI4NDVk",
+        "https://t.me/joinchat/LoATRt0pfH81MzBk",
+        "https://t.me/joinchat/zYSU3QDIPppkZmQ0",
+        "https://t.me/joinchat/LGwn9L_TtK82OTVk",
+        "https://t.me/joinchat/m8gLUqr5h2dlMTdk",
+        "https://t.me/joinchat/LU4bgriZYWs5Yzg8",
+        "https://t.me/joinchat/TXRLn8NjlbA0NzQ0",
+        # "https://t.me/joinchat/OOC4qk2QS1FM37aETHuzWQ",
+        # "https://t.me/joinchat/RL4pXSkXipyuKDmd",
+        # "https://t.me/joinchat/FNGD_0n6IpIbjfJBAZsuoA",
+        # "https://t.me/joinchat/qyxbq_vZ5f4xYzg0",
+        # "https://t.me/joinchat/rLRXuuItcHtkMTVk",
+        # "https://t.me/joinchat/aiAC6RgOjBRkYjhk",
+        # "https://t.me/PoliGruppo",
     ]
     for chat in groups_to_fetch_messages:
         print(f"fetching from {chat}")
@@ -75,7 +85,7 @@ if command == "1":
                 chat,
                 limit=batch_size,
                 batch_size_rate=batch_size_increase_rate,
-                time_interval_to_fetch_messages=time_interval_to_fetch_messages,
+                time_interval_to_fetch_messages=100,
             )
         )
         df = pd.concat([df, group_df])
@@ -90,7 +100,7 @@ elif command == "1.5":
 
 elif command == "2":
     raw_data = pd.read_csv("./data/trial.csv")
-    df = select_data_for_labeling(raw_data)
+    df = select_data_for_labeling_conversation_id(raw_data)
     df.to_csv("./data/labeling_data.csv")
 
 elif command == "3":
@@ -108,26 +118,26 @@ elif command == "3":
     X_t, y_t, X_v, y_v, X_tv, y_tv = split_train_test_validation(
         X, y, test_ratio=0.2, val_ratio=0.2
     )
-    # X_t.to_csv("./data/X_train.csv")
-    # y_t.to_csv("./data/y_train.csv")
+    X_t.to_csv("./data/X_train.csv")
+    y_t.to_csv("./data/y_train.csv")
 
-    # X_v.to_csv("./data/X_validation.csv")
-    # y_v.to_csv("./data/y_validation.csv")
+    X_v.to_csv("./data/X_validation.csv")
+    y_v.to_csv("./data/y_validation.csv")
 
-    # X_tv.to_csv("./data/X_test.csv")
-    # y_tv.to_csv("./data/y_test.csv")
+    X_tv.to_csv("./data/X_test.csv")
+    y_tv.to_csv("./data/y_test.csv")
 
-    model = train_random_forest_model(X_t, y_t)
-    print("important features")
-    importances = model.feature_importances_
-    columns_enumeration = [(column, i) for i, column in enumerate(X_t.columns)]
-    columns_enumeration.sort()
-    for column, i in columns_enumeration:
-        print(f"{column} {round(importances[i], ndigits=3)}", end=", ")
-    print("On Validation:")
-    print_model_evaluation_rf(model, X_v, y_v)
-    print("On Test:")
-    print_model_evaluation_rf(model, X_tv, y_tv)
+    # model = train_random_forest_model(X_t, y_t)
+    # print("important features")
+    # importances = model.feature_importances_
+    # columns_enumeration = [(column, i) for i, column in enumerate(X_t.columns)]
+    # columns_enumeration.sort()
+    # for column, i in columns_enumeration:
+    #     print(f"{column} {round(importances[i], ndigits=3)}", end=", ")
+    # print("On Validation:")
+    # print_model_evaluation_rf(model, X_v, y_v)
+    # print("On Test:")
+    # print_model_evaluation_rf(model, X_tv, y_tv)
     # print_evaluation_on_test_plus_draw_sample_charts(model, X_tv, y_tv)
 elif command == "4":
     raw_data = pd.read_csv("./data/trial.csv")
