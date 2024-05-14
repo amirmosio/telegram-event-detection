@@ -72,7 +72,7 @@ def build_model(input_shape, output_shape):
     return model
 
 def train(X_train, y_train, X_val, y_val):
-    input_shape = X_train.shape[1:]##
+    input_shape = X_train.shape[1]##CHECK IF IT IS CORRECT
     output_shape = y_train.shape[1]
 
     model = build_model(input_shape, output_shape)
