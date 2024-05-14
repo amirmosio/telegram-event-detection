@@ -8,6 +8,7 @@ from decouple import config
 from data_preprocessing.translation import translate_messages
 from user_telegram_client.user_client import UserClient
 import asyncio
+from sklearn.model_selection import train_test_split
 
 from conversation_models.random_forest.data_preparation import (
     generate_dataset_from_labeled_data_with_sliding_window,
@@ -29,6 +30,11 @@ from conversation_models.neural_network.model_training import (
     print_model_evaluation as print_model_evaluation_nn,
     draw_loss_chart,
 )
+from conversation_models.random_forest_categories.model_training import (
+    train_random_forest_model_multiclass,
+    print_model_evaluation
+)
+from conversation_models.neural_network_categories.neural_network_categories import neural_network
 
 commands = {
     "1": "Download dataset from telegram groups",
@@ -159,7 +165,31 @@ elif command == "4.6":
         model.load_model("conversation_model_1715021680.755679_epoch_24_acc_83")
         print("Testing")
         print_model_evaluation_nn(model, X_tv, y_tv)
-elif command == "5":
+        
+elif command == "5.1":
+
+    raw_data = pd.read_csv(
+        "./data/labeled_data.csv", sep=";", encoding="unicode_escape"
+    )
+    X = raw_data['text']
+    y = raw_data["category"]
+    X_train, y_train, X_test, y_test = train_test_split(
+        X, y, test_ratio=0.2
+    )
+    clf_multiclass = train_random_forest_model_multiclass(X_train, y_train)
+    print_model_evaluation(clf_multiclass, X_test, y_test)
+
+elif command == "5.2":
+    
+    raw_data = pd.read_csv(
+        "./data/labeled_data.csv", sep=";", encoding="unicode_escape"
+    )
+    X = raw_data['text']
+    y = raw_data["category"]
+    neural_network(X, y)
+    
+
+elif command == "6":
 
     phone_number = config("TELEGRAM_CLIENT_PHONE_NUMBER")
     api_id = config("TELEGRAM_CLIENT_API_ID")
