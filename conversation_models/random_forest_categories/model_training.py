@@ -4,7 +4,6 @@ from sklearn.metrics import (
     recall_score, 
     f1_score, 
     classification_report,
-    roc_auc_score
 )
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
@@ -62,7 +61,6 @@ def print_model_evaluation(clf_multiclaass, df_test, y_true):
     conf_matrix = confusion_matrix(y_true, y_pred)
 
     overall_precision = precision_score(y_true, y_pred, average='macro')
-    overall_roc = roc_auc_score(y_true, y_pred, average='macro')
     overall_recall = recall_score(y_true, y_pred, average='macro')
     overall_f1 = f1_score(y_true, y_pred, average='macro')
 
@@ -74,7 +72,6 @@ def print_model_evaluation(clf_multiclaass, df_test, y_true):
     print(f"Overall Precision: {overall_precision}")
     print(f"Overall Recall: {overall_recall}")
     print(f"Overall F1-score: {overall_f1}")
-    print(f"Overall Roc-auc-score: {overall_roc}")
 
     print("Classification Report:")
     print(class_report)

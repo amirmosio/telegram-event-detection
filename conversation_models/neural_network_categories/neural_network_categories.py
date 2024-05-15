@@ -7,7 +7,6 @@ from sklearn.metrics import (
     recall_score, 
     f1_score, 
     classification_report,
-    roc_auc_score
 )
 
 import tensorflow as tf
@@ -101,7 +100,6 @@ def test(X_test, y_test, model):
 def print_model_evaluation(y_true, y_pred):
     conf_matrix = confusion_matrix(y_true, y_pred)
     overall_precision = precision_score(y_true, y_pred, average='macro')
-    overall_roc = roc_auc_score(y_true, y_pred, average='macro')
     overall_recall = recall_score(y_true, y_pred, average='macro')
     overall_f1 = f1_score(y_true, y_pred, average='macro')
     class_report = classification_report(y_true, y_pred)
@@ -112,7 +110,6 @@ def print_model_evaluation(y_true, y_pred):
     print(f"Overall Precision: {overall_precision}")
     print(f"Overall Recall: {overall_recall}")
     print(f"Overall F1-score: {overall_f1}")
-    print(f"Overall Roc-auc-score: {overall_roc}")
 
     print("Classification Report:")
     print(class_report)
