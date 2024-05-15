@@ -40,7 +40,7 @@ def grid_search_random_forest(X_train, y_train):
 
     clf_multiclaass = RandomForestClassifier(random_state=42)
     
-    grid_search = GridSearchCV(estimator=clf_multiclaass, param_grid=param_grid,cv=5, scoring='f1-score')######
+    grid_search = GridSearchCV(estimator=clf_multiclaass, param_grid=param_grid,cv=5, scoring='f1_macro')######
 
     grid_search.fit(X_train, y_train)
 
