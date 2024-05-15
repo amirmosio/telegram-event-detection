@@ -9,6 +9,7 @@ from data_preprocessing.translation import translate_messages
 from user_telegram_client.user_client import UserClient
 import asyncio
 from sklearn.model_selection import train_test_split
+from data_preprocessing.remove_links import remove_links_and_empty_messages
 
 from conversation_models.random_forest.data_preparation import (
     generate_dataset_from_labeled_data_with_sliding_window,
@@ -180,24 +181,24 @@ elif command == "4.6":
         
 elif command == "5.1":
 
-    raw_data = pd.read_csv(
-        "./data/dataset_for_topic_labeling.csv", sep=";", encoding="unicode_escape"
-    )
-    X = raw_data['text']
-    y = raw_data["category"]
-    X_train, y_train, X_test, y_test = train_test_split(
-        X, y, test_ratio=0.2
+    raw_data = pd.read_csv("./data/dataset_for_topic_labeling.csv")
+    raw_preprocessed = remove_links_and_empty_messages(raw_data)
+    raw_preprocessed.dropna(subset=['topic'], inplace=True) # dataset is labelled only partially
+    X = raw_preprocessed['text']
+    y = raw_preprocessed["topic"]
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, stratify=y
     )
     clf_multiclass = train_random_forest_model_multiclass(X_train, y_train)
     print_model_evaluation(clf_multiclass, X_test, y_test)
 
 elif command == "5.2":
     
-    raw_data = pd.read_csv(
-        "./data/labeled_data.csv", sep=";", encoding="unicode_escape"
-    )
+    raw_data = pd.read_csv("./data/dataset_for_topic_labeling.csv") # dataset is labelled only partially
+    raw_preprocessed = remove_links_and_empty_messages(raw_data)
+    raw_preprocessed.dropna(subset=['topic'], inplace=True) 
     X = raw_data['text']
-    y = raw_data["category"]
+    y = raw_data["topic"]
     neural_network(X, y)
     
 
