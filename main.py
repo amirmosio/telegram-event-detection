@@ -45,7 +45,7 @@ commands = {
     "4.5": "Train conversation model with nn and embedding",
     "4.6": "Test final nn model with test data",
     "5.1": "Train and test random forest for topics",
-    "5.2": "Train and test random nueral network for topics"
+    "5.2": "Train and test random nueral network for topics",
     "6": "Run Telegram client"
 }
 command = input(
@@ -181,7 +181,7 @@ elif command == "4.6":
 elif command == "5.1":
 
     raw_data = pd.read_csv(
-        "./data/labeled_data.csv", sep=";", encoding="unicode_escape"
+        "./data/dataset_for_topic_labeling.csv", sep=";", encoding="unicode_escape"
     )
     X = raw_data['text']
     y = raw_data["category"]
