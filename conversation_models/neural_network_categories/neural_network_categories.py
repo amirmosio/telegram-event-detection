@@ -12,16 +12,18 @@ from sklearn.metrics import (
 import tensorflow as tf
 from tensorflow.keras import layers as tfkl
 
+from utilities.embeddings import embedding_with_sentence_transformer
+
 batch_size = 32
 epochs = 100
 patience_early_stop = 5
 patience_reduce = 3
 
 
-def neural_network(dataset, categories):
-
+def neural_network(X, categories):
+    X = embedding_with_sentence_transformer(list(X))
     X_train_val, X_test, y_train_val, y_test = train_test_split(
-        dataset,
+        X,
         categories,
         test_size = 0.15,
         random_state = 42,
