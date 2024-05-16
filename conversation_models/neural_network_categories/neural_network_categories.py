@@ -12,16 +12,20 @@ from sklearn.metrics import (
 import tensorflow as tf
 from tensorflow.keras import layers as tfkl
 
-from utilities.embeddings import embedding_with_sentence_transformer
+#change
+from tensorflow.keras import backend as K
 
-batch_size = 32
-epochs = 100
-patience_early_stop = 5
-patience_reduce = 3
+from utilities.embeddings import embedding_with_sentence_transformer
+from sklearn.preprocessing import LabelEncoder
+
+batch_size = 128
+epochs = 1000
+patience_early_stop = 100
+patience_reduce = 20
 
 
 def neural_network(X, categories):
-    X = embedding_with_sentence_transformer(list(X))
+    X = embedding_with_sentence_transformer(np.array(X))
     X_train_val, X_test, y_train_val, y_test = train_test_split(
         X, categories, test_size=0.15, random_state=42, stratify=categories
     )
@@ -34,9 +38,26 @@ def neural_network(X, categories):
     for idx, u in enumerate(unique):
         print(f"Class {u} has {count[idx]} samples")
 
+    #change
+    encoder = LabelEncoder()
+
+    y_train = encoder.fit_transform(y_train)
     y_train = tf.keras.utils.to_categorical(y_train, num_classes=len(unique))
+
+    y_val = encoder.fit_transform(y_val)
     y_val = tf.keras.utils.to_categorical(y_val, num_classes=len(unique))
+
+    y_test = encoder.fit_transform(y_test)
     y_test = tf.keras.utils.to_categorical(y_test, num_classes=len(unique))
+
+    #change
+    # Convert lists to numpy arrays
+    X_train = np.array(X_train)
+    y_train = np.array(y_train)
+    X_val = np.array(X_val)
+    y_val = np.array(y_val)
+    X_test = np.array(X_test)
+    y_test = np.array(y_test)
 
     print("Training set shape:\t", X_train.shape, y_train.shape)
     print("Validation set shape:\t", X_val.shape, y_val.shape)
@@ -45,11 +66,23 @@ def neural_network(X, categories):
     model = train(X_train, y_train, X_val, y_val)
     test(X_test, y_test, model)
 
+#change##############################################
+def f1_score(y_true, y_pred):
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    precision = true_positives / (predicted_positives + K.epsilon())
+    recall = true_positives / (possible_positives + K.epsilon())
+    f1_val = 2*(precision*recall)/(precision+recall+K.epsilon())
+    return f1_val
+######################################################
+
 
 def build_model(input_shape, output_shape):
     tf.random.set_seed(42)
 
-    input_layer = tfkl.Input(shape=input_shape, name="Input")
+    #change
+    input_layer = tfkl.Input(shape=(input_shape,), name="Input")
     hidden_layer_1 = tfkl.Dense(128, activation="relu", name="Hidden_Layer_1")(
         input_layer
     )
@@ -65,7 +98,7 @@ def build_model(input_shape, output_shape):
     model.compile(
         optimizer=tf.keras.optimizers.Adam(),
         loss=tf.keras.losses.CategoricalCrossentropy(),
-        metrics=["f1-score"],
+        metrics=[f1_score],
     )
 
     return model
