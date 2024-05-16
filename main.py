@@ -1,3 +1,4 @@
+import json
 import torch
 from data_collection.fetching_data import fetch_messages_from_client_add_to_the_datafram
 import pandas as pd
@@ -7,8 +8,7 @@ from data_labeling.select_for_labeling import (
     select_data_for_labeling_conversation_id,
     select_data_for_labeling_topic,
 )
-
-import time
+from sklearn.utils import shuffle
 import joblib
 from decouple import config
 from data_preprocessing.translation import translate_messages
@@ -44,6 +44,10 @@ from conversation_models.random_forest_categories.model_training import (
 from conversation_models.neural_network_categories.neural_network_categories import (
     neural_network,
 )
+from conversation_models.keyword_search_categories.keyword_search_categories import (
+    get_categories_searching_through_keywrods,
+    print_accuracy,
+)
 
 commands = {
     "1": "Download dataset from telegram groups",
@@ -56,6 +60,7 @@ commands = {
     "4.8": "Select labeling data for topic and categories",
     "5.1": "Train and test random forest for topics",
     "5.2": "Train and test random nueral network for topics",
+    "5.3": "The keyword method for topic modeling",
     "6": "Run Telegram client",
 }
 command = input(
@@ -215,17 +220,44 @@ elif command == "5.1":
     print_model_evaluation(clf_multiclass, X_test, y_test)
 
 elif command == "5.2":
-
-    raw_data = pd.read_csv(
-        "./data/dataset_for_topic_labeling.csv"
-    )  # dataset is labelled only partially
+    # dataset is labelled only partially
+    raw_data = pd.read_csv("./data/NNTopic_dataframe.csv")
     raw_preprocessed = remove_links_and_empty_messages(raw_data)
     raw_preprocessed.dropna(subset=["topic"], inplace=True)
     X = raw_data["text"]
     y = raw_data["topic"]
     neural_network(X, y)
 
+elif command == "5.2.9":
+    raw_data = pd.read_csv("./data/dataset_for_topic_labeling.csv")
+    topic_keyword_df = raw_data.dropna(subset=["topic", "keywords"])
+    topic_keyword_dict = {}
+    for idx in range(len(topic_keyword_df)):
+        r = topic_keyword_df.iloc[idx]
+        topic = r["topic"]
+        keywords = [k.strip() for k in r["keywords"].split(",")]
+        if topic not in topic_keyword_dict:
+            topic_keyword_dict[topic] = set()
+        topic_keyword_dict[topic].update(keywords)
+    print(topic_keyword_dict)
 
+elif command == "5.3":
+    raw_data = pd.read_csv("./data/dataset_for_topic_labeling.csv")
+    raw_data = raw_data.dropna(subset=["topic", "text"])
+
+    raw_data = raw_data[raw_data["reply"].isnull()]
+    raw_data = shuffle(raw_data)
+
+    # raw_data = raw_data.iloc[1:433]
+    with open("topic_keywords_dict.json") as f:
+        topic_keyword_dict = json.load(f)
+    sample_texts = ["Is the score from 33?"]
+    categories = get_categories_searching_through_keywrods(
+        raw_data["text"], topic_keyword_dict
+    )
+    raw_data["predicted_topic"] = categories
+
+    print_accuracy(raw_data["predicted_topic"], raw_data["topic"])
 elif command == "6":
 
     phone_number = config("TELEGRAM_CLIENT_PHONE_NUMBER")
