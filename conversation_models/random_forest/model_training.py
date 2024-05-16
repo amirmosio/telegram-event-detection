@@ -7,6 +7,7 @@ from sklearn.metrics import (
     accuracy_score,
     recall_score,
     precision_score,
+    roc_auc_score,
 )
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -26,15 +27,11 @@ def train_random_forest_model(X_train, y_train):
 def print_model_evaluation(clf, X, y):
     y_pred = clf.predict(X)
 
-    acc = accuracy_score(y, y_pred)
-    cm = confusion_matrix(y, y_pred)
-    sens = recall_score(y, y_pred)
-    prec = precision_score(y, y_pred)
-
-    print("Accuracy:", acc)
-    print("Confusion matrix:", cm)
-    print("Sensitivity:", sens)
-    print("Precision:", prec)
+    print("Accuracy:", accuracy_score(y, y_pred))
+    print("Confusion matrix:", confusion_matrix(y, y_pred))
+    print("Recall:", recall_score(y, y_pred))
+    print("Precision:", precision_score(y, y_pred))
+    print("AUC:", roc_auc_score(y, y_pred))
 
     """
     Confusion matrix graph, for charts
@@ -47,7 +44,7 @@ def print_model_evaluation(clf, X, y):
     """
 
 
-def print_evaluation_on_test(clf, x, y):
+def print_evaluation_on_test_plus_draw_sample_charts(clf, x, y):
     print_model_evaluation(clf, x, y)
 
     import warnings
