@@ -223,8 +223,8 @@ elif command == "5.1":
     print_model_evaluation(clf_multiclass, X_test, y_test)
 
 elif command == "5.2":
-    # dataset is labelled only partially
-    raw_data = pd.read_csv("./data/NNTopic_dataframe.csv")
+    
+    raw_data = pd.read_csv("./data/NNTopic_dataframe.csv") # dataset is labelled only partially
     raw_preprocessed = remove_links_and_empty_messages(raw_data)
     raw_preprocessed.dropna(subset=["topic"], inplace=True)
     X = raw_data["text"]
