@@ -19,12 +19,13 @@ def train_random_forest_model(X_train, y_train):
     print(f"Training on {len(y_train)} data point")
     clf = RandomForestClassifier(n_estimators=100, random_state=42)
 
-    clf.fit(X_train, y_train)
+    clf.fit(X_train, y_train.astype(int))
 
     return clf
 
 
 def print_model_evaluation(clf, X, y):
+    y = y.astype(int)
     y_pred = clf.predict(X)
 
     print("Accuracy:", accuracy_score(y, y_pred))

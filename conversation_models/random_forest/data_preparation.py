@@ -22,58 +22,105 @@ def calculate_time_delta(a, b):
 
 
 @torch.no_grad()
-def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
+def generate_dataset_from_labeled_data_with_sliding_window(
+    raw_df, window_size=5, message_id_column=False, label_column=True
+):
+    df = raw_df.copy(deep=True)
     embeddings = embedding_with_reoberta(df["text"])
     df["embedding"] = embeddings
     result_df = pd.DataFrame()
 
+    result_df["greetings"] = 0
+    result_df["thanks"] = 0
+    result_df["questions"] = 0
 
-    result_df['greetings'] = 0
-    result_df['thanks'] = 0
-    result_df['questions'] = 0
-
-    greet = ['hi','hi!','hi,','hi.','hello', 'hello!','hello,','hello.','hey','hey!','hey,','hey.']
-    greet2 = ['good morning','good morning!','good morning,','good morning.','good afternoon','good afternoon!','good afternoon,','good afternoon.','good evening','good evening!','good evening,','good evening.']
-    thank = ['thanks','thanks!','.thanks','thank','.thank']
+    greet = [
+        "hi",
+        "hi!",
+        "hi,",
+        "hi.",
+        "hello",
+        "hello!",
+        "hello,",
+        "hello.",
+        "hey",
+        "hey!",
+        "hey,",
+        "hey.",
+    ]
+    greet2 = [
+        "good morning",
+        "good morning!",
+        "good morning,",
+        "good morning.",
+        "good afternoon",
+        "good afternoon!",
+        "good afternoon,",
+        "good afternoon.",
+        "good evening",
+        "good evening!",
+        "good evening,",
+        "good evening.",
+    ]
+    thank = ["thanks", "thanks!", ".thanks", "thank", ".thank"]
 
     for start_idx in tqdm(range(len(df) - window_size - 1)):
         record_df = df.iloc[start_idx : start_idx + window_size + 1]
-        last_messages_conversation = record_df.iloc[-1]["conversation_id"]
+        if label_column:
+            last_messages_conversation = record_df.iloc[-1]["conversation_id"]
 
         window_df = record_df.iloc[:-1]
 
         train_record = {
             f"reaction_ref": sum(
-                json.loads(record_df.iloc[-1]["reactions"].replace("'", '"')).values()
+                json.loads(
+                    record_df.iloc[-1]["reactions"]
+                    .replace("'", '"')
+                    .encode("utf-8")
+                    .decode("unicode_escape")
+                ).values()
             ),
             "nn_embedding": record_df.iloc[-1]["embedding"],
             "thanks": 0.0,
             "questions": 0.0,
-            "greetings": 0.0
+            "greetings": 0.0,
         }
+        if message_id_column:
+            train_record["message_id"] = record_df.iloc[-1]["id"]
         text = str(record_df.iloc[-1]["text"]).lower()
         words = text.split()
-        text_with_spaces = ' '.join(words)
-    
+        text_with_spaces = " ".join(words)
 
-        if any(word in greet for word in words) and pd.isnull(record_df.iloc[-1]['reply']):
-            train_record['greetings'] = 1.0
-        if any(phrase in text_with_spaces for phrase in greet2) and pd.isnull(record_df.iloc[-1]['reply']):
-            train_record['greetings'] = 1.0
+        if any(word in greet for word in words) and pd.isnull(
+            record_df.iloc[-1]["reply"]
+        ):
+            train_record["greetings"] = 1.0
+        if any(phrase in text_with_spaces for phrase in greet2) and pd.isnull(
+            record_df.iloc[-1]["reply"]
+        ):
+            train_record["greetings"] = 1.0
 
         # check if it's a thanks message without a '?' & 'thanks in advance'
-        if any(word in thank for word in words) and not any('?' in word for word in words) and not any('advance' in word for word in words):
-            train_record['thanks'] = 1.0
-    
+        if (
+            any(word in thank for word in words)
+            and not any("?" in word for word in words)
+            and not any("advance" in word for word in words)
+        ):
+            train_record["thanks"] = 1.0
+
         # check if it's a question
-        if '?' in text:
-            train_record['questions'] = 1.0
+        if "?" in text:
+            train_record["questions"] = 1.0
 
         for i in range(window_size):
             train_record |= {
                 f"reaction{i}": sum(
                     json.loads(
-                        window_df.iloc[i]["reactions"].replace("'", '"')
+                        window_df.iloc[i]["reactions"]
+                        .replace("'", '"')
+                        .replace("'", '"')
+                        .encode("utf-8")
+                        .decode("unicode_escape")
                     ).values()
                 )
             }
@@ -96,10 +143,12 @@ def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
                 pass
             train_record |= {f"same_profile{i}": same_profile}
 
-        # Setting Target Values
-        train_record |= {
-            "label": last_messages_conversation in window_df["conversation_id"].array
-        }
+        if label_column:
+            # Setting Target Values
+            train_record |= {
+                "label": last_messages_conversation
+                in window_df["conversation_id"].array
+            }
         result_df = result_df._append(train_record, ignore_index=True)
 
     result_df = result_df.reset_index()
@@ -112,7 +161,6 @@ def generate_dataset_from_labeled_data_with_sliding_window(df, window_size=5):
     result_df["nn_embedding"] = model(nn_embeddings)
 
     result_df = result_df.drop("index", axis=1)
-
 
     # To make the dataset more balanced and unbiased we have to drop extra label==True records so that
     # number of label==True traning would be equal to number of label=False

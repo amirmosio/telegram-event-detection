@@ -56,7 +56,7 @@ def translate_messages(df_original):
                 pass
 
     running = True
-    worker_threads = 5
+    worker_threads = 3
     for _ in range(worker_threads):
         threading.Thread(target=items_queue_worker).start()
 

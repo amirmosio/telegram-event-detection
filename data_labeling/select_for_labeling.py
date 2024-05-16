@@ -24,3 +24,21 @@ def select_data_for_labeling_conversation_id(df):
     new_df = new_df.reset_index(drop=True)
     df = translate_messages(new_df)
     return df
+
+
+def select_data_for_labeling_topic(rf_model, df):
+    from conversation_models.random_forest.data_preparation import (
+        generate_dataset_from_labeled_data_with_sliding_window,
+    )
+
+    features_df = generate_dataset_from_labeled_data_with_sliding_window(
+        df, window_size=4, message_id_column=True, label_column=False
+    )
+    messages_ids_df = features_df[["message_id"]]
+    features_df = features_df.drop("message_id", axis=1)
+    y = rf_model.predict(features_df)
+    messages_ids_df["label"] = y
+    roots_df = messages_ids_df[messages_ids_df["label"] == False]["message_id"]
+
+    result_df = df[df["id"].isin(roots_df)]
+    return result_df
