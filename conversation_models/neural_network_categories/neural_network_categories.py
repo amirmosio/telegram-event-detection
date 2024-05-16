@@ -13,15 +13,15 @@ import tensorflow as tf
 from tensorflow.keras import layers as tfkl
 
 #change
-from keras import backend as K
+from tensorflow.keras import backend as K
 
 from utilities.embeddings import embedding_with_sentence_transformer
 from sklearn.preprocessing import LabelEncoder
 
 batch_size = 128
-epochs = 100
-patience_early_stop = 5
-patience_reduce = 3
+epochs = 1000
+patience_early_stop = 100
+patience_reduce = 20
 
 
 def neural_network(X, categories):
@@ -66,7 +66,7 @@ def neural_network(X, categories):
     model = train(X_train, y_train, X_val, y_val)
     test(X_test, y_test, model)
 
-#change
+#change##############################################
 def f1_score(y_true, y_pred):
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
     possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
@@ -75,6 +75,7 @@ def f1_score(y_true, y_pred):
     recall = true_positives / (possible_positives + K.epsilon())
     f1_val = 2*(precision*recall)/(precision+recall+K.epsilon())
     return f1_val
+######################################################
 
 
 def build_model(input_shape, output_shape):
