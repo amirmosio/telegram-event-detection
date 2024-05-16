@@ -1,0 +1,8 @@
+{
+    "1. Project/assignment/homework": ["challenge", "group", "peer review", "submission", "prepare", "project", "homework", "miniproject", "upload", "presentation", "team", "assignment"],
+    "2. Exam/oral exam/mid term": ["appeal", "midterm", "calculator", "quiz", "exam", "precall", "written", "call", "remote", "correction", "taking exam", "pre-appeal", "pass"],
+    "4. Deadline/important dates": ["deadline", "verbalization", "calendar", "tomorrow", "date"],
+    "5. Grades/marks/results": ["results", "published", "vote", "publish", "weeks", "point", "receive", "scores", "publication", "extra", "grade exam"],
+    "6. Materials/recordings": ["tutoring", "previous exams", "notes", "fact", "answer", "question", "old exam", "notebook", "record", "lecture recording", "practice", "exercise", "algorithm", "wrong", "slide", "webeep", "example", "write", "explain", "material", "solution", "calculate", "past exam"],
+    "7. class information/class sessions": ["lab", "thursday", "time", "sunday", "exercise session", "stream", "zoom", "schedule", "lesson", "online", "classroom", "today's lecture", "tuesday", "friday", "email", "monday", "class", "lecture", "link lesson", "saturday", "access online service", "wednesday"]
+}

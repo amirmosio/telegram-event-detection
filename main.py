@@ -48,6 +48,7 @@ from conversation_models.keyword_search_categories.keyword_search_categories imp
     get_categories_searching_through_keywrods,
     print_accuracy,
 )
+from utilities.finding_synonyms import get_synonyms
 
 commands = {
     "1": "Download dataset from telegram groups",
@@ -60,6 +61,8 @@ commands = {
     "4.8": "Select labeling data for topic and categories",
     "5.1": "Train and test random forest for topics",
     "5.2": "Train and test random nueral network for topics",
+    "5.2.9": "Extract all keywords from topic labeled datasets",
+    "5.2.9.5": "Add synonyms to all keywords in topic keywords mapping",
     "5.3": "The keyword method for topic modeling",
     "6": "Run Telegram client",
 }
@@ -240,6 +243,18 @@ elif command == "5.2.9":
             topic_keyword_dict[topic] = set()
         topic_keyword_dict[topic].update(keywords)
     print(topic_keyword_dict)
+elif command == "5.2.9.5":
+    with open("topic_keywords_dict.json") as f:
+        topic_keyword_dict = json.load(f)
+    for key in topic_keyword_dict:
+        new_keywords = []
+        for w in topic_keyword_dict[key]:
+            new_keywords.append(w)
+            new_keywords += get_synonyms(w)
+        topic_keyword_dict[key] = list(set(new_keywords))
+    with open("topic_keywords_dict.json", "w") as f:
+        # Dump the dictionary into the file
+        json.dump(topic_keyword_dict, f)
 
 elif command == "5.3":
     raw_data = pd.read_csv("./data/dataset_for_topic_labeling.csv")
