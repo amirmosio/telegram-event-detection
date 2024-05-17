@@ -14,13 +14,14 @@ from tensorflow.keras import layers as tfkl
 
 #change
 from tensorflow.keras import backend as K
+from numpy import argmax
 
 from utilities.embeddings import embedding_with_sentence_transformer
 from sklearn.preprocessing import LabelEncoder
 
-batch_size = 128
+batch_size = 256
 epochs = 1000
-patience_early_stop = 100
+patience_early_stop = 80
 patience_reduce = 20
 
 
@@ -67,15 +68,21 @@ def neural_network(X, categories):
     test(X_test, y_test, model)
 
 #change##############################################
-def f1_score(y_true, y_pred):
+def f11_score(y_true, y_pred):
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
     possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
     predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    precision = true_positives / (predicted_positives + K.epsilon())
-    recall = true_positives / (possible_positives + K.epsilon())
-    f1_val = 2*(precision*recall)/(precision+recall+K.epsilon())
+    
+    # Cast true_positives, predicted_positives, and possible_positives to float32 before the division
+    precision = K.cast(true_positives, 'float32') / (K.cast(predicted_positives, 'float32') + K.epsilon())
+    recall = K.cast(true_positives, 'float32') / (K.cast(possible_positives, 'float32') + K.epsilon())
+    
+    f1_val = tf.where(tf.math.is_nan(precision) | tf.math.is_nan(recall), 
+                      0.0, 
+                      2*(precision*recall)/(precision+recall+K.epsilon()))
+    
     return f1_val
-######################################################
+###################################
 
 
 def build_model(input_shape, output_shape):
@@ -98,7 +105,7 @@ def build_model(input_shape, output_shape):
     model.compile(
         optimizer=tf.keras.optimizers.Adam(),
         loss=tf.keras.losses.CategoricalCrossentropy(),
-        metrics=[f1_score],
+        metrics=[f11_score],
     )
 
     return model
@@ -127,16 +134,18 @@ def train(X_train, y_train, X_val, y_val):
 
 def test(X_test, y_test, model):
     test_predictions = model.predict(X_test, verbose=0)
+    #change
+    y_test = argmax(y_test, axis=-1)
     y_pred = np.argmax(test_predictions, axis=-1)
     print_model_evaluation(y_test, y_pred)
 
 
 def print_model_evaluation(y_true, y_pred):
     conf_matrix = confusion_matrix(y_true, y_pred)
-    overall_precision = precision_score(y_true, y_pred, average="macro")
+    overall_precision = precision_score(y_true, y_pred, average="macro", zero_division=0)
     overall_recall = recall_score(y_true, y_pred, average="macro")
-    overall_f1 = f1_score(y_true, y_pred, average="macro")
-    class_report = classification_report(y_true, y_pred)
+    overall_f1 = f11_score(y_true, y_pred)
+    class_report = classification_report(y_true, y_pred, zero_division=0)
 
     print("Confusion Matrix:")
     print(conf_matrix)
@@ -158,9 +167,9 @@ def plot_result(history):
     plt.grid(alpha=0.3)
 
     plt.figure(figsize=(15, 2))
-    plt.plot(history["accuracy"], label="Training accuracy", alpha=0.8)
-    plt.plot(history["val_accuracy"], label="Validation accuracy", alpha=0.8)
-    plt.title("Accuracy")
+    plt.plot(history["f11_score"], label="Training F1 Score", alpha=0.8)
+    plt.plot(history["val_f11_score"], label="Validation F1 Score", alpha=0.8)
+    plt.title("F1 Score")
     plt.legend()
     plt.grid(alpha=0.3)
     plt.show()
