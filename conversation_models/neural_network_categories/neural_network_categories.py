@@ -9,11 +9,7 @@ from sklearn.metrics import (
     classification_report,
 )
 
-import tensorflow as tf
-from tensorflow.keras import layers as tfkl
 
-#change
-from tensorflow.keras import backend as K
 from numpy import argmax
 
 from utilities.embeddings import embedding_with_sentence_transformer
@@ -26,6 +22,8 @@ patience_reduce = 20
 
 
 def neural_network(X, categories):
+    import tensorflow as tf
+
     X = embedding_with_sentence_transformer(np.array(X))
     X_train_val, X_test, y_train_val, y_test = train_test_split(
         X, categories, test_size=0.15, random_state=42, stratify=categories
@@ -39,7 +37,7 @@ def neural_network(X, categories):
     for idx, u in enumerate(unique):
         print(f"Class {u} has {count[idx]} samples")
 
-    #change
+    # change
     encoder = LabelEncoder()
 
     y_train = encoder.fit_transform(y_train)
@@ -51,7 +49,7 @@ def neural_network(X, categories):
     y_test = encoder.fit_transform(y_test)
     y_test = tf.keras.utils.to_categorical(y_test, num_classes=len(unique))
 
-    #change
+    # change
     # Convert lists to numpy arrays
     X_train = np.array(X_train)
     y_train = np.array(y_train)
@@ -67,28 +65,43 @@ def neural_network(X, categories):
     model = train(X_train, y_train, X_val, y_val)
     test(X_test, y_test, model)
 
-#change##############################################
+
+# change##############################################
 def f11_score(y_true, y_pred):
+    from tensorflow.keras import backend as K
+    import tensorflow as tf
+
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
     possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
     predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    
+
     # Cast true_positives, predicted_positives, and possible_positives to float32 before the division
-    precision = K.cast(true_positives, 'float32') / (K.cast(predicted_positives, 'float32') + K.epsilon())
-    recall = K.cast(true_positives, 'float32') / (K.cast(possible_positives, 'float32') + K.epsilon())
-    
-    f1_val = tf.where(tf.math.is_nan(precision) | tf.math.is_nan(recall), 
-                      0.0, 
-                      2*(precision*recall)/(precision+recall+K.epsilon()))
-    
+    precision = K.cast(true_positives, "float32") / (
+        K.cast(predicted_positives, "float32") + K.epsilon()
+    )
+    recall = K.cast(true_positives, "float32") / (
+        K.cast(possible_positives, "float32") + K.epsilon()
+    )
+
+    f1_val = tf.where(
+        tf.math.is_nan(precision) | tf.math.is_nan(recall),
+        0.0,
+        2 * (precision * recall) / (precision + recall + K.epsilon()),
+    )
+
     return f1_val
+
+
 ###################################
 
 
 def build_model(input_shape, output_shape):
+    from tensorflow.keras import layers as tfkl
+    import tensorflow as tf
+
     tf.random.set_seed(42)
 
-    #change
+    # change
     input_layer = tfkl.Input(shape=(input_shape,), name="Input")
     hidden_layer_1 = tfkl.Dense(128, activation="relu", name="Hidden_Layer_1")(
         input_layer
@@ -134,7 +147,7 @@ def train(X_train, y_train, X_val, y_val):
 
 def test(X_test, y_test, model):
     test_predictions = model.predict(X_test, verbose=0)
-    #change
+    # change
     y_test = argmax(y_test, axis=-1)
     y_pred = np.argmax(test_predictions, axis=-1)
     print_model_evaluation(y_test, y_pred)
@@ -142,7 +155,9 @@ def test(X_test, y_test, model):
 
 def print_model_evaluation(y_true, y_pred):
     conf_matrix = confusion_matrix(y_true, y_pred)
-    overall_precision = precision_score(y_true, y_pred, average="macro", zero_division=0)
+    overall_precision = precision_score(
+        y_true, y_pred, average="macro", zero_division=0
+    )
     overall_recall = recall_score(y_true, y_pred, average="macro")
     overall_f1 = f11_score(y_true, y_pred)
     class_report = classification_report(y_true, y_pred, zero_division=0)
