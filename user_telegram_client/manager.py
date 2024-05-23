@@ -1,26 +1,16 @@
 from peewee import SqliteDatabase, OperationalError, DoesNotExist
-from .models import User, UserCategorieMap, UserGroupMap
+from .models import User, UserCategorieMap, UserGroupMap, GroupLinkIdMap
 
 
 class QueryManager:
     def __init__(self) -> None:
         self.db = SqliteDatabase("peewee_database.db")
         self.db.connect()
-
-        try:
-            self.db.create_tables([User])
-        except OperationalError:
-            print("Table already exists!")
-
-        try:
-            self.db.create_tables([UserCategorieMap])
-        except OperationalError:
-            print("Table already exists!")
-
-        try:
-            self.db.create_tables([UserGroupMap])
-        except OperationalError:
-            print("Table already exists!")
+        for model in [User, UserCategorieMap, UserGroupMap, GroupLinkIdMap]:
+            try:
+                self.db.create_tables([model])
+            except OperationalError:
+                print("Table already exists!")
 
     def check_if_user_has_been_here_before(self, telegram_id):
         try:
@@ -63,7 +53,7 @@ class QueryManager:
             q = UserGroupMap.delete().where(UserGroupMap.user == user)
             q.execute()
             _ = UserGroupMap.bulk_create(
-                [UserGroupMap(user=user, group_link=g) for g in groups]
+                [UserGroupMap(user=user, group_id=g) for g in groups]
             )
             return True
         except DoesNotExist:
@@ -78,5 +68,28 @@ class QueryManager:
                 [UserCategorieMap(user=user, category=t) for t in topics]
             )
             return True
+        except DoesNotExist:
+            return False
+
+    def get_users_interested_in_topic_and_group(self, group=None, topic=None):
+        try:
+            if topic and group:
+                users_q = (
+                    User.select(User.telegram_id)
+                    .distinct()
+                    .join(UserCategorieMap)
+                    .switch(User)
+                    .join(UserGroupMap)
+                    .where(
+                        User.state == User.State.TOPIC_SET
+                        and UserCategorieMap.category == topic
+                        and UserGroupMap.group_id == group
+                    )
+                )
+            else:
+                users_q = User.select(User.telegram_id).where(
+                    User.state == User.State.TOPIC_SET
+                )
+            return [u.telegram_id for u in users_q]
         except DoesNotExist:
             return False

@@ -8,25 +8,37 @@ from datetime import datetime, timedelta
 from tqdm import tqdm
 import numpy as np
 from utilities.embeddings import (
-    embedding_with_reoberta,
+    embedding_with_distil_bert,
     embedding_with_sentence_transformer,
 )
 
 
 def calculate_time_delta(a, b):
-    datetime_format = "%Y-%m-%d %H:%M:%S%z"
-    a_datetime = datetime.strptime(a, datetime_format)
-    b_datetime = datetime.strptime(b, datetime_format)
+    if type(a) == str and type(b) == str:
+        datetime_format = "%Y-%m-%d %H:%M:%S%z"
+        a_datetime = datetime.strptime(a, datetime_format)
+        b_datetime = datetime.strptime(b, datetime_format)
+    else:
+        a_datetime = a
+        b_datetime = b
     time_delta = a_datetime - b_datetime
     return time_delta / timedelta(minutes=1)
 
 
 @torch.no_grad()
 def generate_dataset_from_labeled_data_with_sliding_window(
-    raw_df, window_size=5, message_id_column=False, label_column=True
+    raw_df,
+    window_size=5,
+    message_id_column=False,
+    label_column=True,
+    embedding_tokenizer=None,
+    embedding_model=None,
+    conversation_model_nn=None,
 ):
     df = raw_df.copy(deep=True)
-    embeddings = embedding_with_reoberta(df["text"])
+    embeddings = embedding_with_distil_bert(
+        df["text"], tokenizer=embedding_tokenizer, model=embedding_model
+    )
     df["embedding"] = embeddings
     result_df = pd.DataFrame()
 
@@ -64,7 +76,7 @@ def generate_dataset_from_labeled_data_with_sliding_window(
     ]
     thank = ["thanks", "thanks!", ".thanks", "thank", ".thank"]
 
-    for start_idx in tqdm(range(len(df) - window_size - 1)):
+    for start_idx in tqdm(range(len(df) - window_size)):
         record_df = df.iloc[start_idx : start_idx + window_size + 1]
         if label_column:
             last_messages_conversation = record_df.iloc[-1]["conversation_id"]
@@ -153,12 +165,18 @@ def generate_dataset_from_labeled_data_with_sliding_window(
 
     result_df = result_df.reset_index()
 
-    model = ConversationRootModel(input_feature_size=len(embeddings[-1]))
-    model.load_model("conversation_model_1715021680.755679_epoch_24_acc_83")
-
+    if conversation_model_nn is None:
+        conversation_model_nn = ConversationRootModel(
+            input_feature_size=len(embeddings[-1])
+        )
+        conversation_model_nn.load_model(
+            "conversation_model_1715021680.755679_epoch_24_acc_83"
+        )
+        conversation_model_nn.eval()
     nn_embeddings = np.array([x for x in result_df["nn_embedding"]])
     nn_embeddings = torch.tensor(nn_embeddings, dtype=torch.float)
-    result_df["nn_embedding"] = model(nn_embeddings)
+
+    result_df["nn_embedding"] = conversation_model_nn(nn_embeddings)
 
     result_df = result_df.drop("index", axis=1)
 

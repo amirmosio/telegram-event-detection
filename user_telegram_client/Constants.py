@@ -42,6 +42,12 @@ class Messages:
     DONE = "All set"
 
 
+class Commands:
+    Start = "start"
+    Groups = "group"
+    Topics = "topic"
+
+
 class Patterns:
     Link = r"^https:\/\/(www\.)?t.me\/.*$"
     TopicIds = r"^[1-6]$"

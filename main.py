@@ -66,9 +66,10 @@ commands = {
     "5.3": "The keyword method for topic modeling",
     "6": "Run Telegram client",
 }
-command = input(
-    "Which phase:\n" + "\n".join([f"{key}-{commands[key]}" for key in commands]) + "\n"
-)
+# command = input(
+#     "Which phase:\n" + "\n".join([f"{key}-{commands[key]}" for key in commands]) + "\n"
+# )
+command = "6"
 commands[command]
 
 
@@ -150,19 +151,19 @@ elif command == "3":
     X_tv.to_csv("./data/X_test.csv")
     y_tv.to_csv("./data/y_test.csv")
 
-    model = train_random_forest_model(X_t, y_t)
-    print("important features")
-    importances = model.feature_importances_
-    columns_enumeration = [(column, i) for i, column in enumerate(X_t.columns)]
-    columns_enumeration.sort()
-    for column, i in columns_enumeration:
-        print(f"{column} {round(importances[i], ndigits=3)}", end=", ")
-    print("On Validation:")
-    print_model_evaluation_rf(model, X_v, y_v)
-    print("On Test:")
-    print_model_evaluation_rf(model, X_tv, y_tv)
+    # model = train_random_forest_model(X_t, y_t)
+    # print("important features")
+    # importances = model.feature_importances_
+    # columns_enumeration = [(column, i) for i, column in enumerate(X_t.columns)]
+    # columns_enumeration.sort()
+    # for column, i in columns_enumeration:
+    #     print(f"{column} {round(importances[i], ndigits=3)}", end=", ")
+    # print("On Validation:")
+    # print_model_evaluation_rf(model, X_v, y_v)
+    # print("On Test:")
+    # print_model_evaluation_rf(model, X_tv, y_tv)
 
-    joblib.dump(model, f"./trained_models/RF_93.joblib")
+    # joblib.dump(model, f"./trained_models/RF_93.joblib")
 elif command == "4":
     raw_data = pd.read_csv("./data/trial.csv")
     # raw_data = raw_data.iloc[:355]
@@ -188,15 +189,17 @@ elif command == "4.5":
 elif command == "4.6":
     torch.manual_seed(0)
     raw_data = pd.read_csv("./data/training_data_for_nn.csv")
-    # raw_data = raw_data.iloc[:555]
-    _, _, _, _, X_tv, y_tv = split_train_test_validation(
-        raw_data[["text"]], raw_data["is_root"]
-    )
+    raw_data = raw_data.iloc[1879:1880]
+    # _, _, _, _, X_tv, y_tv = split_train_test_validation(
+    #     raw_data[["text"]], raw_data["is_root"]
+    # )
+    X_tv, y_tv = raw_data[["text"]], raw_data["is_root"]
     X_tv = replace_text_with_embedding(X_tv)["embedding"]
 
     with torch.no_grad():
         model = ConversationRootModel(input_feature_size=len(X_tv.iloc[-1]))
         model.load_model("conversation_model_1715021680.755679_epoch_24_acc_83")
+        model.eval()
         print("Testing")
         print_model_evaluation_nn(model, X_tv, y_tv)
 elif command == "4.8":
