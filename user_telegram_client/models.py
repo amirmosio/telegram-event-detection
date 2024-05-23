@@ -49,7 +49,16 @@ class UserCategorieMap(BaseModel):
 class UserGroupMap(BaseModel):
     memid = AutoField()  # Auto-incrementing primary key.
     user = ForeignKeyField(User, backref="groups", lazy_load=False)
-    group_link = CharField()
+    group_id = CharField()
 
     class Meta:
         table_name = "user_group"
+
+
+class GroupLinkIdMap(BaseModel):
+    memid = AutoField()  # Auto-incrementing primary key.
+    group_link = CharField()
+    group_id = CharField()
+
+    class Meta:
+        table_name = "group_link_id_map"

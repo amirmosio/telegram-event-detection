@@ -30,31 +30,9 @@ async def fetch_messages_from_client_add_to_the_datafram(
         )
         progress_days_bar.refresh()
 
-        messages = await client.get_messages(chat, limit, offset_date=last_message_date)
-        new_group_df = pd.DataFrame()
-        for message in messages:
-            reactions_result = (
-                [] if message.reactions is None else message.reactions.results
-            )
-            # Add reactions as feature
-            reactions_dict = {}
-            for r in reactions_result:
-                try:
-                    reactions_dict[r.reaction.emoticon] = r.count
-                except:
-                    pass
-
-            data = {
-                "id": message.id,
-                "group": chat,
-                "sender": message.sender_id,
-                "text": message.text,
-                "reply": message.reply_to_msg_id,
-                "date": message.date,
-                "reactions": reactions_dict,
-            }
-            new_group_df = new_group_df._append(data, ignore_index=True)
-
+        new_group_df = await client.get_messages(
+            chat, limit, offset_date=last_message_date
+        )
         if new_group_df.empty:
             break
         new_group_df = new_group_df.sort_values(by="date", ascending=True)

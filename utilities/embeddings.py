@@ -21,9 +21,15 @@ def embedding_with_sentence_transformer(messages):
 #     return laser.embed_sentences(messages, lang=["en"] * len(len(messages)))
 
 
-def embedding_with_reoberta(messages):
-    tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
-    model = DistilBertModel.from_pretrained("distilbert-base-uncased")
+def embedding_with_distil_bert(messages, tokenizer=None, model=None):
+    tokenizer = (
+        tokenizer
+        if tokenizer
+        else DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
+    )
+    model = (
+        model if model else DistilBertModel.from_pretrained("distilbert-base-uncased")
+    )
 
     def calculate_embedding(m):
         input_tokens = tokenizer(
@@ -44,6 +50,7 @@ def embedding_with_reoberta(messages):
             try:
                 output = calculate_embedding(messages[i])
             except:
+                print("Error on embedding")
                 output = calculate_embedding("")
 
             embeddings.append(output.last_hidden_state[:, 0, :].flatten())

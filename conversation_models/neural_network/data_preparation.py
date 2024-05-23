@@ -3,7 +3,7 @@ from sklearn.utils import shuffle
 from data_preprocessing.translation import translate_messages
 
 from utilities.embeddings import (
-    embedding_with_reoberta,
+    embedding_with_distil_bert,
     embedding_with_sentence_transformer,
 )
 
@@ -47,6 +47,6 @@ def generate_dataset_considering_root_of_conversation(df, min_conversation_leng=
 
 
 def replace_text_with_embedding(df):
-    embeddings = embedding_with_reoberta(df["text"].array)
+    embeddings = embedding_with_distil_bert(df["text"].array)
     df["embedding"] = embeddings
     return df
