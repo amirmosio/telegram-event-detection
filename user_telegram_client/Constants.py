@@ -28,13 +28,14 @@ class Messages:
     )
 
     SEND_INTERESTED_TOPICS = (
-        f"""Send us the number of topics are most interested different lines from:"""
-        + f"""\n{"".join([(t+"\n") for t in TopicClasses.values()])}"""
-        + """\n\nFor Example:"""
-        + """\n<topic-number1>"""
-        + """\n<topic-number2>"""
-        + """\n..."""
-    )
+    "Send us the number of topics you are most interested in different lines from:"
+    + "\n" + "\n".join([t for t in TopicClasses.values()])
+    + "\n\nFor Example:"
+    + "\n<topic-number1>"
+    + "\n<topic-number2>"
+    + "\n..."
+)
+
 
     FINAL = """You are all set up. From now on, if we see a new conversation is starting which is in your interests, we'll send you a notification."""
 
