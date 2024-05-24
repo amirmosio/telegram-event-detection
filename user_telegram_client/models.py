@@ -27,9 +27,9 @@ class User(BaseModel):
         WAIT_TOPIC_SET = "WAIT_TOPIC_SET"
 
     memid = AutoField()  # Auto-incrementing primary key.
-    username = CharField()
-    first_name = CharField()
-    last_name = CharField()
+    username = CharField(null=True)
+    first_name = CharField(null=True)
+    last_name = CharField(null=True)
     telegram_id = CharField()
     state = CharField()
 
