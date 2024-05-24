@@ -29,25 +29,23 @@ class ClientGroupMessageHandlerMixin:
         )
         self.conversation_model_nn = ConversationRootModel(input_feature_size=768)
         self.conversation_model_nn.load_model(
-            "conversation_model_1715021680.755679_epoch_24_acc_83"
+            r"conversation_model_1715021680.755679_epoch_24_acc_83"
         )
         self.conversation_model_nn.eval()
 
         self.topic_distil_tokenizer = DistilBertTokenizer.from_pretrained(
-            "trained_models\DistilBERT\distilBERT_tokenizer"
+            r"trained_models\DistilBERT\distilBERT_tokenizer"
         )
 
         # Load the DistilBERT model
         self.topic_distil_model = DistilBertForSequenceClassification.from_pretrained(
-            "trained_models\DistilBERT\distilBERT_model"
+            r"trained_models\DistilBERT\distilBERT_model"
         )
 
         # Set the model in evaluation mode
         self.topic_distil_model.eval()
 
-        @self.client.on(
-            telethon.events.NewMessage(func=lambda e: e.is_group and not e.is_channel)
-        )
+        @self.client.on(telethon.events.NewMessage(func=lambda e: e.is_group))
         async def group_message_handler(event):
             chat = await event.get_chat()
 
