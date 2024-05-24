@@ -66,10 +66,9 @@ commands = {
     "5.3": "The keyword method for topic modeling",
     "6": "Run Telegram client",
 }
-# command = input(
-#     "Which phase:\n" + "\n".join([f"{key}-{commands[key]}" for key in commands]) + "\n"
+command = input(
+    "Which phase:\n" + "\n".join([f"{key}-{commands[key]}" for key in commands]) + "\n"
 # )
-command = "6"
 commands[command]
 
 DEBUG = batch_size = bool(config("DEBUG"))
