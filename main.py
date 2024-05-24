@@ -68,7 +68,7 @@ commands = {
 }
 command = input(
     "Which phase:\n" + "\n".join([f"{key}-{commands[key]}" for key in commands]) + "\n"
-# )
+)
 commands[command]
 
 DEBUG = batch_size = bool(config("DEBUG"))
