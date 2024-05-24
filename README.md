@@ -10,7 +10,8 @@ Components of this project:
  All of the components can be ran from main.py
 
  Here is the link to the description of the project:
- Google Slide: https://docs.google.com/presentation/d/1xOufGmwwDxyDUGt5lQMmtHxtgQivVYN68eHBDd4wogA/edit?usp=sharing
+ 
+ [Google Slide](https://docs.google.com/presentation/d/1xOufGmwwDxyDUGt5lQMmtHxtgQivVYN68eHBDd4wogA/edit?usp=sharing)
 
 # Running the Script
 Before anything make sure you have the python(version 3.10 and above) installed and working. Also for managing the python libarary please make sure you have the python env properly set up and ready to use.
@@ -18,7 +19,7 @@ Before anything make sure you have the python(version 3.10 and above) installed 
 Steps:
  - Create a file named ".env" similar to ".env_template" and fill the required values such:
    - TELEGRAM_CLIENT_PHONE_NUMBER: It s the phone of your telegram account which you want to run your client with.
-   - TELEGRAM_CLIENT_API_ID, TELEGRAM_CLIENT_API_HASH: Read (detail){https://core.telegram.org/api/obtaining_api_id} for more information on how to create a telegram applicatino to get these two values 
+   - TELEGRAM_CLIENT_API_ID, TELEGRAM_CLIENT_API_HASH: Read [detail](https://core.telegram.org/api/obtaining_api_id) for more information on how to create a telegram applicatino to get these two values 
  - Activate you python environment
  - In the directory of the project run this command:
    - python -m pip install -r requirements.txt
