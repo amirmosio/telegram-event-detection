@@ -72,6 +72,7 @@ commands = {
 command = "6"
 commands[command]
 
+DEBUG = batch_size = bool(config("DEBUG"))
 
 if command == "1":
     batch_size = int(config("BATCH_SIZE"))
@@ -151,17 +152,17 @@ elif command == "3":
     X_tv.to_csv("./data/X_test.csv")
     y_tv.to_csv("./data/y_test.csv")
 
-    # model = train_random_forest_model(X_t, y_t)
-    # print("important features")
-    # importances = model.feature_importances_
-    # columns_enumeration = [(column, i) for i, column in enumerate(X_t.columns)]
-    # columns_enumeration.sort()
-    # for column, i in columns_enumeration:
-    #     print(f"{column} {round(importances[i], ndigits=3)}", end=", ")
-    # print("On Validation:")
-    # print_model_evaluation_rf(model, X_v, y_v)
-    # print("On Test:")
-    # print_model_evaluation_rf(model, X_tv, y_tv)
+    model = train_random_forest_model(X_t, y_t)
+    print("important features")
+    importances = model.feature_importances_
+    columns_enumeration = [(column, i) for i, column in enumerate(X_t.columns)]
+    columns_enumeration.sort()
+    for column, i in columns_enumeration:
+        print(f"{column} {round(importances[i], ndigits=3)}", end=", ")
+    print("On Validation:")
+    print_model_evaluation_rf(model, X_v, y_v)
+    print("On Test:")
+    print_model_evaluation_rf(model, X_tv, y_tv)
 
     # joblib.dump(model, f"./trained_models/RF_93.joblib")
 elif command == "4":

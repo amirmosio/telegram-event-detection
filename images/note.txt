@@ -1,0 +1,2 @@
+Here are all the images of analysis of the messages during the client run time.
+The charts would show the effective ness of all features in the process od decision making of the random forest.

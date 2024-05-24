@@ -71,11 +71,17 @@ class ClientPrivateMessageHandlerMixin:
         self.query_manager.update_user_state(event.sender_id, User.State.REGISTERED)
 
     async def __handle_setting_groups(self, event):
-        self.query_manager.update_group_for_user(
-            telegram_id=event.sender_id, groups=event.raw_text.strip().splitlines()
-        )
-        self.query_manager.update_user_state(event.sender_id, User.State.GROUPS_SET)
-        await event.reply(Messages.SEND_INTERESTED_TOPICS)
+        groups = event.raw_text.strip().splitlines()
+        groups = [l.strip("/") for l in groups]
+        group_ids, invalid_link = await self.__join_groups(groups)
+        if invalid_link:
+            await event.reply(f"Invalid Link \n{invalid_link}")
+        else:
+            self.query_manager.update_group_for_user(
+                telegram_id=event.sender_id, groups=group_ids
+            )
+            self.query_manager.update_user_state(event.sender_id, User.State.GROUPS_SET)
+            await event.reply(Messages.SEND_INTERESTED_TOPICS)
 
     async def __handle_setting_topics(self, event):
         self.query_manager.update_topics_for_user(
@@ -90,32 +96,16 @@ class ClientPrivateMessageHandlerMixin:
 
     async def __handle_updating_groups(self, event):
         groups = event.raw_text.strip().splitlines()
-        from telethon.tl.functions.messages import (
-            ImportChatInviteRequest,
-            CheckChatInviteRequest,
-        )
-
         groups = [l.strip("/") for l in groups]
-        group_ids = []
-        for l in groups:
-            hash_g = l.split("/")[-1].strip("+").strip("-")
-            try:
-                updates = await self.client(ImportChatInviteRequest(hash_g))
-                group_id = updates.chats[0].id
-                group_ids.append(group_id)
-            except telethon.errors.rpcerrorlist.UserAlreadyParticipantError:
-                checked = await self.client(CheckChatInviteRequest(hash_g))
-                group_id = checked.chat.id
-                group_ids.append(group_id)
-            except Exception:
-                await event.reply(f"Invalid Link \n{l}")
-                return
-
-        self.query_manager.update_group_for_user(
-            telegram_id=event.sender_id, groups=group_ids
-        )
-        self.query_manager.update_user_state(event.sender_id, User.State.TOPIC_SET)
-        await event.reply(Messages.DONE)
+        group_ids, invalid_link = await self.__join_groups(groups)
+        if invalid_link:
+            await event.reply(f"Invalid Link \n{invalid_link}")
+        else:
+            self.query_manager.update_group_for_user(
+                telegram_id=event.sender_id, groups=group_ids
+            )
+            self.query_manager.update_user_state(event.sender_id, User.State.TOPIC_SET)
+            await event.reply(Messages.DONE)
 
     async def __handle_requiest_for_updating_topics(self, event):
         self.query_manager.update_user_state(event.sender_id, User.State.WAIT_TOPIC_SET)
@@ -127,3 +117,26 @@ class ClientPrivateMessageHandlerMixin:
         )
         self.query_manager.update_user_state(event.sender_id, User.State.TOPIC_SET)
         await event.reply(Messages.DONE)
+
+    async def __join_groups(self, groups):
+        from telethon.tl.functions.messages import (
+            ImportChatInviteRequest,
+            CheckChatInviteRequest,
+        )
+
+        group_ids = []
+        invalid_link = None
+        for l in groups:
+            hash_g = re.split("/|-|\+", l.strip("/"))[-1]
+            try:
+                updates = await self.client(ImportChatInviteRequest(hash_g))
+                group_id = updates.chats[0].id
+                group_ids.append(group_id)
+            except telethon.errors.rpcerrorlist.UserAlreadyParticipantError:
+                checked = await self.client(CheckChatInviteRequest(hash_g))
+                group_id = checked.chat.id
+                group_ids.append(group_id)
+            except Exception as e:
+                invalid_link = l
+                return None, invalid_link
+        return group_ids, None

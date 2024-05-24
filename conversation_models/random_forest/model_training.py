@@ -1,4 +1,5 @@
 import random
+import time
 import matplotlib
 import matplotlib.pyplot
 from sklearn.ensemble import RandomForestClassifier
@@ -45,14 +46,13 @@ def print_model_evaluation(clf, X, y):
     """
 
 
-def print_evaluation_on_test_plus_draw_sample_charts(clf, x, y):
-    print_model_evaluation(clf, x, y)
+def draw_variable_affects_for_a_sample(clf, x, y, n=5, title_extra=""):
 
     import warnings
 
     warnings.simplefilter("ignore", FutureWarning)
 
-    for i in random.sample(range(0, len(x)), 5):
+    for i in random.sample(range(0, len(x)), n):
         row = x.iloc[i : i + 1]
         label = y.iloc[i : i + 1].array[0]
         predicted_label = clf.predict(row)[0]
@@ -69,11 +69,16 @@ def print_evaluation_on_test_plus_draw_sample_charts(clf, x, y):
             formatting="{:,.3f}",
             net_label="End Result",
             other_label="Remaining Vars",
-            Title=f"How does each variable effect the outcome?\n true label {label} predicted {predicted_label}",
+            Title=f"How does each variable effect the outcome?\n real label {label} predicted {predicted_label}\n{title_extra}",
             x_lab="Variables",
             y_lab="Prediction",
             green_color="#247747",
             blue_color="#0e4f66",
             red_color="#ff0000",
         )
-    matplotlib.pyplot.show()
+        matplotlib.pyplot.savefig(f"./images/affect_{time.time()}.png")
+
+
+def print_evaluation_on_test_plus_draw_sample_charts(clf, x, y):
+    print_model_evaluation(clf, x, y)
+    draw_variable_affects_for_a_sample(clf, x, y)

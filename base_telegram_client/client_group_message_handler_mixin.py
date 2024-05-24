@@ -13,8 +13,11 @@ from transformers import (
     DistilBertModel,
     DistilBertForSequenceClassification,
 )
-
+import pandas as pd
 from user_telegram_client.constants import TopicClasses
+from conversation_models.random_forest.model_training import (
+    draw_variable_affects_for_a_sample,
+)
 
 
 class ClientGroupMessageHandlerMixin:
@@ -88,7 +91,7 @@ class ClientGroupMessageHandlerMixin:
         return topic
 
     async def __check_if_it_is_a_new_conversation(self, event, chat):
-        messages = await self.get_messages(
+        messages = await self.get_messages_without_takeout(
             chat_id=chat.id, limit=5, offset_id=event.message.id + 1
         )
         messages = messages.iloc[::-1]
@@ -104,6 +107,14 @@ class ClientGroupMessageHandlerMixin:
             conversation_model_nn=self.conversation_model_nn,
         )
         is_related = self.rf_model.predict(input_for_rf_df)[-1]
+        from main import DEBUG
+
+        if DEBUG:
+            y = y = pd.DataFrame([])
+            y = y._append({"y": is_related}, ignore_index=True)["y"]
+            draw_variable_affects_for_a_sample(
+                self.rf_model, input_for_rf_df, y, n=1, title_extra=event.raw_text
+            )
         return not is_related
 
     async def __send_notif_to_users(self, event, chat, topic=None):

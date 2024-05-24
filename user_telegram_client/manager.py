@@ -80,11 +80,9 @@ class QueryManager:
                     .join(UserCategorieMap)
                     .switch(User)
                     .join(UserGroupMap)
-                    .where(
-                        User.state == User.State.TOPIC_SET
-                        and UserCategorieMap.category == topic
-                        and UserGroupMap.group_id == group
-                    )
+                    .where(User.state == User.State.TOPIC_SET)
+                    .where(UserCategorieMap.category == topic)
+                    .where(UserGroupMap.group_id == group)
                 )
             else:
                 users_q = User.select(User.telegram_id).where(
