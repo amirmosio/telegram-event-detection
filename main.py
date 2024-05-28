@@ -49,6 +49,14 @@ from conversation_models.keyword_search_categories.keyword_search_categories imp
     print_accuracy,
 )
 from utilities.finding_synonyms import get_synonyms
+import settings
+
+if settings.DEBUG:
+    print(
+        "Attention!\nYou are running in debug mode."
+        + "\nThis is just for the purpose of testing, which can affect the performance"
+        + "\n........\n"
+    )
 
 commands = {
     "1": "Download dataset from telegram groups",
@@ -66,17 +74,21 @@ commands = {
     "5.3": "The keyword method for topic modeling",
     "6": "Run Telegram client",
 }
-command = input(
-    "Which phase:\n" + "\n".join([f"{key}-{commands[key]}" for key in commands]) + "\n"
+print(
+    "Which phase:\n"
+    + "\n".join([f"{key} -- {commands[key]}" for key in commands])
+    + "\n"
 )
+command = input("Enter A Command Number:")
 commands[command]
 
-DEBUG = batch_size = bool(config("DEBUG"))
 
 if command == "1":
-    batch_size = int(config("BATCH_SIZE"))
-    batch_size_increase_rate = int(config("BATCH_SIZE_INCREASE_RATE"))
-    time_interval_to_fetch_messages = int(config("TIME_INTERVAL_TO_FETCH_MESSAGES"))
+    batch_size = settings.TELEGRAM_DOWNLOAD_BATCH_SIZE
+    batch_size_increase_rate = settings.TELEGRAM_DOWNLOAD_BATCH_SIZE_INCREASE_RATE
+    time_interval_to_fetch_messages = (
+        settings.TELEGRAM_DOWNLOAD_TIME_INTERVAL_TO_FETCH_MESSAGES
+    )
 
     df = pd.DataFrame()
 

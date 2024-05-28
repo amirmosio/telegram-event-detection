@@ -7,6 +7,8 @@ TopicClasses = {
     4: "4. Deadline/important dates",
     5: "5. Grades/marks/results",
     6: "6. Materials/recordings",
+    7: "7. class information/class sessions",
+    8: "8. Other",
 }
 
 
@@ -28,19 +30,23 @@ class Messages:
     )
 
     SEND_INTERESTED_TOPICS = (
-    "Send us the number of topics you are most interested in different lines from:"
-    + "\n" + "\n".join([t for t in TopicClasses.values()])
-    + "\n\nFor Example:"
-    + "\n<topic-number1>"
-    + "\n<topic-number2>"
-    + "\n..."
-)
-
+        "Send us the number of topics you are most interested in different lines from:"
+        + "\n"
+        + "\n".join([t for t in TopicClasses.values()])
+        + "\n\nFor Example:"
+        + "\n<topic-number1>"
+        + "\n<topic-number2>"
+        + "\n..."
+    )
 
     FINAL = """You are all set up. From now on, if we see a new conversation is starting which is in your interests, we'll send you a notification."""
 
     INVALID_INPUT = """The input does not seems to be valid. If you want to update your prederences just use "group" or "topic"."""
     DONE = "All set"
+
+    MESSAGE_NOTIFICATION_TEMPLATE = (
+        "Group: {group}\nTopic: {topic}\n-----------------------------\n{message}"
+    )
 
 
 class Commands:
@@ -51,4 +57,4 @@ class Commands:
 
 class Patterns:
     Link = r"^https:\/\/(www\.)?t.me\/.*$"
-    TopicIds = r"^[1-6]$"
+    TopicIds = r"^[1-8]$"

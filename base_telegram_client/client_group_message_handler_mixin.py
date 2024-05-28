@@ -8,13 +8,14 @@ from conversation_models.random_forest.data_preparation import (
     generate_dataset_from_labeled_data_with_sliding_window,
 )
 import joblib
+from settings import DEBUG
 from transformers import (
     DistilBertTokenizer,
     DistilBertModel,
     DistilBertForSequenceClassification,
 )
 import pandas as pd
-from user_telegram_client.constants import TopicClasses
+from user_telegram_client.constants import TopicClasses, Messages
 from conversation_models.random_forest.model_training import (
     draw_variable_affects_for_a_sample,
 )
@@ -107,7 +108,6 @@ class ClientGroupMessageHandlerMixin:
             conversation_model_nn=self.conversation_model_nn,
         )
         is_related = self.rf_model.predict(input_for_rf_df)[-1]
-        from main import DEBUG
 
         if DEBUG:
             y = y = pd.DataFrame([])
@@ -125,5 +125,9 @@ class ClientGroupMessageHandlerMixin:
             user_peer = PeerUser(int(user))
             await self.client.send_message(
                 user_peer,
-                f"{chat.title} - {TopicClasses[int(topic)]}:\n{event.raw_text}",
+                Messages.MESSAGE_NOTIFICATION_TEMPLATE.format(
+                    group=chat.title,
+                    topic=TopicClasses[int(topic)],
+                    message=event.raw_text,
+                ),
             )
